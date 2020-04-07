@@ -2,5 +2,5 @@
     "domain": "tenant-alit.auth0.com",
     "clientId": "CTX0kh5nSpphCOsjjulxXHk9KCwO40lW",
     "redirect_uri": "http://localhost:3000",
-    "audience": "your_auth0_custom_api_identifier = https://ymj-hasura.herokuapp.com/v1/graphql"
+    "audience": "https://ymj-hasura.herokuapp.com/v1/graphql = https://ymj-hasura.herokuapp.com/v1/graphql"
   }

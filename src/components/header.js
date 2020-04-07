@@ -27,7 +27,7 @@ function Header() {
               </>
             )}
 
-            {isAuthenticated && (
+            {isAuthenticated && user && (
               <>
                 <Link className="anchor" to="/new-post">
                   submit
