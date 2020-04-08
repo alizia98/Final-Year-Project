@@ -25,7 +25,7 @@ ReactDOM.render(
       domain={config.domain}
       client_id={config.clientId}
 
-      redirect_uri={config.redirect_uri}
+      redirect_uri={window.location.href}
       onRedirectCallback={onRedirectCallback}
     >
       <App />
