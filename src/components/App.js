@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../styles/App.css";
 import Header from "./header.js";
 import NewPost from "./NewPost";
+import sideNavBar from "./sideNavBar";
 // import SecuredRoute from "./SecuredRoute";
 
 
@@ -24,7 +25,8 @@ function App() {
 
   return (
     <ApolloProvider client={client}>
-           <Header />
+           <Header/>
+           <sideNavBar/>
     </ApolloProvider>
   );
 }

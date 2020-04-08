@@ -32,12 +32,26 @@ function Header() {
       <AppBar position="static">
         <Toolbar>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-        
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             Step by Step Web Portal
           </Typography>
-          <Button color="inherit">Login</Button>
+          {!isAuthenticated && (
+              <>
+                <Button color="inherit"
+                  onClick={() => loginWithRedirect({})}
+                >
+                  Log in
+                </Button>
+              </>
+            )}
+            {isAuthenticated && (
+              <>
+                <Button color="inherit" onClick={() => logout()}>
+                  Log out
+                </Button>
+              </>
+            )}
         </Toolbar>
       </AppBar>
     </div>
