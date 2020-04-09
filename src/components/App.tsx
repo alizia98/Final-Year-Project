@@ -13,6 +13,11 @@ import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import { ApolloProvider } from "@apollo/react-hooks";
 import { ApolloClient, HttpLink, InMemoryCache } from "apollo-boost";
 import { CssBaseline } from "@material-ui/core";
+import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
+import HomePage from "../pages/Home";
+import ActionPage from "../pages/Action";
+import MapsPage from "../pages/Maps";
+import SupportPage from "../pages/Support";
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme: Theme) =>
@@ -54,56 +59,73 @@ function App() {
   const classes = useStyles();
   return (
     <ApolloProvider client={client}>
-      <div className={classes.root}>
-        <CssBaseline />
+      <Router>
+        <div className={classes.root}>
+          <CssBaseline />
+          <Header />
 
-        <Header />
+          {isAuthenticated && (
+            <>
+              <Drawer
+                className={classes.drawer}
+                variant="permanent"
+                classes={{
+                  paper: classes.drawerPaper
+                }}
+              >
+                <Toolbar />
+                <div className={classes.drawerContainer}>
+                  <List>
+                    <ListItem button>
+                      <Link to="/">
+                        <ListItemText primary={"Personal Info"} />
+                      </Link>
+                    </ListItem>
 
-        {isAuthenticated && (
-          <>
-            <Drawer
-              className={classes.drawer}
-              variant="permanent"
-              classes={{
-                paper: classes.drawerPaper
-              }}
-            >
-              <Toolbar />
-              <div className={classes.drawerContainer}>
-                <List>
-                  {["Inbox", "Starred", "Send email", "Drafts"].map(
-                    (text, index) => (
-                      <ListItem button key={text}>
-                        <ListItemText primary={text} />
-                      </ListItem>
-                    )
-                  )}
-                </List>
+                    <ListItem button>
+                      <Link to="/support">
+                        <ListItemText primary={"Support Plan"} />
+                      </Link>
+                    </ListItem>
 
-                <List>
-                  {["Personal Info", "Support Plan", "Action Plan"].map(
-                    (text, index) => (
-                      <ListItem button key={text}>
-                        <ListItemText primary={text} />
-                      </ListItem>
-                    )
-                  )}
-                </List>
-              </div>
-            </Drawer>
+                    <ListItem button>
+                      <Link to="/action">
+                        <ListItemText primary={"Action Plan"} />
+                      </Link>
+                    </ListItem>
 
-            <main className={classes.content}>
-              <Toolbar />
-              <Typography paragraph>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Rhoncus dolor purus non enim praesent elementum facilisis leo
-                vel
-              </Typography>
-            </main>
-          </>
-        )}
-      </div>
+                    <ListItem button>
+                      <Link to="/maps">
+                        <ListItemText primary={"Maps"} />
+                      </Link>
+                    </ListItem>
+                  </List>
+                </div>
+              </Drawer>
+
+              <main className={classes.content}>
+                <Toolbar />
+                <Switch>
+                  <Route path="/">
+                    <HomePage />
+                  </Route>
+                  <Route path="/action">
+                    <ActionPage />
+                  </Route>
+                  <Route path="/support">
+                    <SupportPage />
+                  </Route>
+                  <Route path="/maps">
+                    <MapsPage />
+                  </Route>
+                </Switch>
+
+                <Typography paragraph>hello world</Typography>
+              </main>
+            </>
+          )}
+        </div>
+      </Router>
     </ApolloProvider>
   );
 }
