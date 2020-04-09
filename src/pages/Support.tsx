@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function SupportPage() {
-  return <div>hello support</div>;
+  return <div>Hello Support</div>;
 }

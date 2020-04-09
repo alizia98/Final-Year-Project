@@ -1,18 +1,14 @@
 import React, { useState } from "react";
 import "../styles/App.css";
 import Header from "./header";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import List from "@material-ui/core/List";
 import Drawer from "@material-ui/core/Drawer";
 import { useAuth0 } from "../auth/react-auth0-wrapper";
 import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 // for apollo client
 import { ApolloProvider } from "@apollo/react-hooks";
 import { ApolloClient, HttpLink, InMemoryCache } from "apollo-boost";
-import { CssBaseline } from "@material-ui/core";
+import { CssBaseline, MenuList, MenuItem } from "@material-ui/core";
 import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
 import HomePage from "../pages/Home";
 import ActionPage from "../pages/Action";
@@ -41,6 +37,12 @@ const useStyles = makeStyles((theme: Theme) =>
     content: {
       flexGrow: 1,
       padding: theme.spacing(3)
+    },
+    nested: {
+      padding: theme.spacing(3),
+      // paddingBottom: theme.spacing(4),
+      paddingLeft: theme.spacing(4)
+      // paddingTop: theme.spacing(4)
     }
   })
 );
@@ -75,31 +77,36 @@ function App() {
               >
                 <Toolbar />
                 <div className={classes.drawerContainer}>
-                  <List>
-                    <ListItem button>
-                      <Link to="/">
-                        <ListItemText primary={"Personal Info"} />
-                      </Link>
-                    </ListItem>
-
-                    <ListItem button>
-                      <Link to="/support">
-                        <ListItemText primary={"Support Plan"} />
-                      </Link>
-                    </ListItem>
-
-                    <ListItem button>
-                      <Link to="/action">
-                        <ListItemText primary={"Action Plan"} />
-                      </Link>
-                    </ListItem>
-
-                    <ListItem button>
-                      <Link to="/maps">
-                        <ListItemText primary={"Maps"} />
-                      </Link>
-                    </ListItem>
-                  </List>
+                  <MenuList>
+                    <MenuItem
+                      className={classes.nested}
+                      component={Link}
+                      to="/"
+                    >
+                      Personal Info
+                    </MenuItem>
+                    <MenuItem
+                      className={classes.nested}
+                      component={Link}
+                      to="/support"
+                    >
+                      Support Plan
+                    </MenuItem>
+                    <MenuItem
+                      className={classes.nested}
+                      component={Link}
+                      to="/action"
+                    >
+                      Action Plan
+                    </MenuItem>
+                    <MenuItem
+                      className={classes.nested}
+                      component={Link}
+                      to="/maps"
+                    >
+                      Maps
+                    </MenuItem>
+                  </MenuList>
                 </div>
               </Drawer>
 
@@ -119,8 +126,6 @@ function App() {
                     <MapsPage />
                   </Route>
                 </Switch>
-
-                {/* <Typography paragraph>hello world</Typography> */}
               </main>
             </>
           )}
