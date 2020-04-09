@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "../styles/App.css";
 import Header from "./header";
 import Drawer from "@material-ui/core/Drawer";
@@ -57,8 +57,12 @@ function App() {
     link: httpLink,
     cache: new InMemoryCache()
   });
-  const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
+  const { isAuthenticated } = useAuth0();
   const classes = useStyles();
+
+  // console.log(window.location.pathname);
+  // console.log(window.location.href);
+
   return (
     <ApolloProvider client={client}>
       <Router>
@@ -79,6 +83,7 @@ function App() {
                 <div className={classes.drawerContainer}>
                   <MenuList>
                     <MenuItem
+                      selected={"/" === window.location.pathname}
                       className={classes.nested}
                       component={Link}
                       to="/"
@@ -86,6 +91,7 @@ function App() {
                       Personal Info
                     </MenuItem>
                     <MenuItem
+                      selected={"/support" === window.location.pathname}
                       className={classes.nested}
                       component={Link}
                       to="/support"
@@ -93,6 +99,7 @@ function App() {
                       Support Plan
                     </MenuItem>
                     <MenuItem
+                      selected={"/action" === window.location.pathname}
                       className={classes.nested}
                       component={Link}
                       to="/action"
@@ -100,6 +107,7 @@ function App() {
                       Action Plan
                     </MenuItem>
                     <MenuItem
+                      selected={"/maps" === window.location.pathname}
                       className={classes.nested}
                       component={Link}
                       to="/maps"
