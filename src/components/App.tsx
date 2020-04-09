@@ -106,7 +106,7 @@ function App() {
               <main className={classes.content}>
                 <Toolbar />
                 <Switch>
-                  <Route path="/">
+                  <Route exact={true} path="/">
                     <HomePage />
                   </Route>
                   <Route path="/action">
@@ -120,7 +120,7 @@ function App() {
                   </Route>
                 </Switch>
 
-                <Typography paragraph>hello world</Typography>
+                {/* <Typography paragraph>hello world</Typography> */}
               </main>
             </>
           )}
