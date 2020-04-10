@@ -14,8 +14,10 @@ import HomePage from "../pages/Home";
 import ActionPage from "../pages/Action";
 import MapsPage from "../pages/Maps";
 import SupportPage from "../pages/Support";
+import { useLocation } from "react-router-dom";
 
 const drawerWidth = 240;
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -60,9 +62,8 @@ function App() {
   const { isAuthenticated } = useAuth0();
   const classes = useStyles();
 
-  // console.log(window.location.pathname);
-  // console.log(window.location.href);
-
+  const location = useLocation();
+  console.log(location);
   return (
     <ApolloProvider client={client}>
       <Router>
@@ -83,7 +84,7 @@ function App() {
                 <div className={classes.drawerContainer}>
                   <MenuList>
                     <MenuItem
-                      selected={"/" === window.location.pathname}
+                      selected={"/" === location.pathname}
                       className={classes.nested}
                       component={Link}
                       to="/"
@@ -91,7 +92,7 @@ function App() {
                       Personal Info
                     </MenuItem>
                     <MenuItem
-                      selected={"/support" === window.location.pathname}
+                      selected={"/support" === location.pathname}
                       className={classes.nested}
                       component={Link}
                       to="/support"
@@ -99,7 +100,7 @@ function App() {
                       Support Plan
                     </MenuItem>
                     <MenuItem
-                      selected={"/action" === window.location.pathname}
+                      selected={"/action" === location.pathname}
                       className={classes.nested}
                       component={Link}
                       to="/action"
@@ -107,7 +108,7 @@ function App() {
                       Action Plan
                     </MenuItem>
                     <MenuItem
-                      selected={"/maps" === window.location.pathname}
+                      selected={"/maps" === location.pathname}
                       className={classes.nested}
                       component={Link}
                       to="/maps"
