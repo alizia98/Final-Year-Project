@@ -1,67 +1,97 @@
 import React from "react";
 import {
-  MenuItem,
-  MenuList,
-  Card,
-  CardContent,
-  makeStyles,
-  Button,
+  withStyles,
   Theme,
   createStyles,
-  Paper,
-  Grid
-} from "@material-ui/core";
-import { width, height } from "@material-ui/system";
-// import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import CardActions from "@material-ui/core/CardActions";
-import Typography from "@material-ui/core/Typography";
+  makeStyles
+} from "@material-ui/core/styles";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
 
-const useStyles = makeStyles((theme: Theme) =>
+const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
-    paddingbutton: {
-      padding: theme.spacing(3),
-      width: "100%"
+    head: {
+      backgroundColor: theme.palette.common.black,
+      color: theme.palette.common.white
     },
-    paddingDiv: {
-      padding: theme.spacing(3),
-      paddingBottom: theme.spacing(1)
-    },
-    root: {
-      flexGrow: 1
-    },
-    paper: {
-      padding: theme.spacing(2),
-      textAlign: "center",
-      color: theme.palette.text.secondary
+    body: {
+      fontSize: 14
     }
   })
-);
+)(TableCell);
 
-export default function ActionPage() {
+const StyledTableRow = withStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      "&:nth-of-type(odd)": {
+        backgroundColor: theme.palette.background.default
+      }
+    }
+  })
+)(TableRow);
+
+function createData(
+  name: string,
+  Timeline_Project: string,
+  Record_Type: string,
+  Counsellor: string,
+  Start_Date: number
+) {
+  return { name, Timeline_Project, Record_Type, Counsellor, Start_Date };
+}
+
+const rows = [
+  createData(
+    "A-040559",
+    "Surrey Counselling",
+    "Counselling Action",
+    "Paul harris",
+    11
+  )
+];
+
+const useStyles = makeStyles({
+  table: {
+    minWidth: 700
+  }
+});
+
+export default function CustomizedTables() {
   const classes = useStyles();
+
   return (
-    <Card className={classes.paddingbutton} variant="outlined">
-      <CardContent>
-        <div className={classes.root}>
-          <Grid container spacing={1}>
-            <Grid item xs>
-              Action AutoNumber
-            </Grid>
-            <Grid item xs>
-              Record Type
-            </Grid>
-            <Grid item xs>
-              Councelor
-            </Grid>
-            <Grid item xs>
-              Created Date
-            </Grid>
-            <Grid item xs>
-              Created By
-            </Grid>
-          </Grid>
-        </div>
-      </CardContent>
-    </Card>
+    <TableContainer component={Paper}>
+      <Table className={classes.table} aria-label="customized table">
+        <TableHead>
+          <TableRow>
+            <StyledTableCell>name</StyledTableCell>
+            <StyledTableCell align="right">Timeline Project</StyledTableCell>
+            <StyledTableCell align="right">Record Type</StyledTableCell>
+            <StyledTableCell align="right">Counsellor</StyledTableCell>
+            <StyledTableCell align="right">Start Date</StyledTableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows.map(row => (
+            <StyledTableRow key={row.name}>
+              <StyledTableCell component="th" scope="row">
+                {row.name}
+              </StyledTableCell>
+              <StyledTableCell align="right">
+                {row.Timeline_Project}
+              </StyledTableCell>
+              <StyledTableCell align="right">{row.Record_Type}</StyledTableCell>
+              <StyledTableCell align="right">{row.Counsellor}</StyledTableCell>
+              <StyledTableCell align="right">{row.Start_Date}</StyledTableCell>
+            </StyledTableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 }
