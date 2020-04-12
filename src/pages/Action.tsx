@@ -69,7 +69,7 @@ export default function CustomizedTables() {
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>name</StyledTableCell>
+            <StyledTableCell>Action Plan</StyledTableCell>
             <StyledTableCell align="right">Timeline Project</StyledTableCell>
             <StyledTableCell align="right">Record Type</StyledTableCell>
             <StyledTableCell align="right">Counsellor</StyledTableCell>

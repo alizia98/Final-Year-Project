@@ -15,6 +15,7 @@ import ActionPage from "../pages/Action";
 import MapsPage from "../pages/Maps";
 import SupportPage from "../pages/Support";
 import { useLocation } from "react-router-dom";
+import { green, indigo } from "@material-ui/core/colors";
 
 const drawerWidth = 240;
 
@@ -45,6 +46,15 @@ const useStyles = makeStyles((theme: Theme) =>
       // paddingBottom: theme.spacing(4),
       paddingLeft: theme.spacing(4)
       // paddingTop: theme.spacing(4)
+    },
+    IndigoButton: {
+      padding: theme.spacing(3),
+      // paddingBottom: theme.spacing(4),
+      paddingLeft: theme.spacing(4),
+      "&:hover": {
+        backgroundColor: indigo[500],
+        color: "#FFF"
+      }
     }
   })
 );
@@ -84,8 +94,8 @@ function App() {
                 <div className={classes.drawerContainer}>
                   <MenuList>
                     <MenuItem
+                      className={classes.IndigoButton}
                       selected={"/" === location.pathname}
-                      className={classes.nested}
                       component={Link}
                       to="/"
                     >
@@ -93,7 +103,7 @@ function App() {
                     </MenuItem>
                     <MenuItem
                       selected={"/support" === location.pathname}
-                      className={classes.nested}
+                      className={classes.IndigoButton}
                       component={Link}
                       to="/support"
                     >
@@ -101,7 +111,7 @@ function App() {
                     </MenuItem>
                     <MenuItem
                       selected={"/action" === location.pathname}
-                      className={classes.nested}
+                      className={classes.IndigoButton}
                       component={Link}
                       to="/action"
                     >
@@ -109,7 +119,7 @@ function App() {
                     </MenuItem>
                     <MenuItem
                       selected={"/maps" === location.pathname}
-                      className={classes.nested}
+                      className={classes.IndigoButton}
                       component={Link}
                       to="/maps"
                     >
