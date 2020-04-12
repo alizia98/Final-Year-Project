@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function Home() {
+export default function Home() {
   const classes = useStyles();
   // const { loading, error, data } = useQuery(schema_contact);
 
@@ -81,4 +81,3 @@ function Home() {
     </div>
   );
 }
-export default withApollo(Home);
