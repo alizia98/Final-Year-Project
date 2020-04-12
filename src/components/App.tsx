@@ -13,6 +13,7 @@ import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
 import HomePage from "../pages/Home";
 import ActionPage from "../pages/Action";
 import MapsPage from "../pages/Maps";
+import SupportPlan from "../pages/SupportPlan";
 import SupportPage from "../pages/Support";
 import { useLocation } from "react-router-dom";
 import { indigo } from "@material-ui/core/colors";
@@ -143,6 +144,9 @@ function App() {
                   </Route>
                   <Route path="/maps">
                     <MapsPage />
+                  </Route>
+                  <Route path="/SupportPlan">
+                    <SupportPlan />
                   </Route>
                 </Switch>
               </main>

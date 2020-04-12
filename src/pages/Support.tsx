@@ -12,6 +12,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import { Link } from "react-router-dom";
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
@@ -78,19 +79,25 @@ export default function CustomizedTables() {
         </TableHead>
         <TableBody>
           {rows.map(row => (
-            <StyledTableRow key={row.name}>
-              <StyledTableCell component="th" scope="row">
-                {row.name}
-              </StyledTableCell>
-              <StyledTableCell align="right">{row.Record_Type}</StyledTableCell>
-              <StyledTableCell align="right">
-                {row.Related_project}
-              </StyledTableCell>
-              <StyledTableCell align="right">
-                {row.Created_Date}
-              </StyledTableCell>
-              <StyledTableCell align="right">{row.Created_By}</StyledTableCell>
-            </StyledTableRow>
+            <Link to="/SupportPlan">
+              <StyledTableRow key={row.name}>
+                <StyledTableCell component="th" scope="row">
+                  {row.name}
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  {row.Record_Type}
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  {row.Related_project}
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  {row.Created_Date}
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  {row.Created_By}
+                </StyledTableCell>
+              </StyledTableRow>
+            </Link>
           ))}
         </TableBody>
       </Table>
