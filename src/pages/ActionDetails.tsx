@@ -36,22 +36,31 @@ const StyledTableRow = withStyles((theme: Theme) =>
 )(TableRow);
 
 function createData(
-  name: string,
-  Record_Type: string,
-  Related_project: string,
-  Created_Date: number,
-  Created_By: string
+  Priority_Area: string,
+  Action: string,
+  By_Whom: string,
+  target_date: number,
+  completed_date: number,
+  Status_of_completion: string
 ) {
-  return { name, Record_Type, Related_project, Created_Date, Created_By };
+  return {
+    Priority_Area,
+    Action,
+    By_Whom,
+    target_date,
+    completed_date,
+    Status_of_completion
+  };
 }
 
 const rows = [
   createData(
-    "PLAN-20780",
-    "Homeless Outcome Star Support Plan",
-    "Surrey Counselling",
-    11,
-    "Paul harris"
+    "DRUG AND ALCOHOL MISUSE",
+    "Test Test Test Test Test",
+    "Test Test Test Test Test",
+    1,
+    1,
+    "yes"
   )
 ];
 
@@ -69,27 +78,31 @@ export default function CustomizedTables() {
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Support Plan</StyledTableCell>
-            <StyledTableCell align="right">Record_Type</StyledTableCell>
-            <StyledTableCell align="right">Related_project</StyledTableCell>
-            <StyledTableCell align="right">Created_Date</StyledTableCell>
-            <StyledTableCell align="right">Created_By</StyledTableCell>
+            <StyledTableCell>Priority Area</StyledTableCell>
+            <StyledTableCell align="right">Action</StyledTableCell>
+            <StyledTableCell align="right">By whom</StyledTableCell>
+            <StyledTableCell align="right">Target date</StyledTableCell>
+            <StyledTableCell align="right">Completed date</StyledTableCell>
+            <StyledTableCell align="right">
+              Status of completion
+            </StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map(row => (
-            <StyledTableRow key={row.name}>
+            <StyledTableRow key={row.Priority_Area}>
               <StyledTableCell component="th" scope="row">
-                {row.name}
+                {row.Priority_Area}
               </StyledTableCell>
-              <StyledTableCell align="right">{row.Record_Type}</StyledTableCell>
+              <StyledTableCell align="right">{row.Action}</StyledTableCell>
+              <StyledTableCell align="right">{row.By_Whom}</StyledTableCell>
+              <StyledTableCell align="right">{row.target_date}</StyledTableCell>
               <StyledTableCell align="right">
-                {row.Related_project}
+                {row.completed_date}
               </StyledTableCell>
               <StyledTableCell align="right">
-                {row.Created_Date}
+                {row.Status_of_completion}
               </StyledTableCell>
-              <StyledTableCell align="right">{row.Created_By}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>

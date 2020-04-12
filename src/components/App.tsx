@@ -15,7 +15,7 @@ import ActionPage from "../pages/Action";
 import MapsPage from "../pages/Maps";
 import SupportPage from "../pages/Support";
 import { useLocation } from "react-router-dom";
-import { green, indigo } from "@material-ui/core/colors";
+import { indigo } from "@material-ui/core/colors";
 
 const drawerWidth = 240;
 
@@ -73,7 +73,7 @@ function App() {
   const classes = useStyles();
 
   const location = useLocation();
-  console.log(location);
+  // console.log(location);
   return (
     <ApolloProvider client={client}>
       <Router>
