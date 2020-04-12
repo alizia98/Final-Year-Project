@@ -3,6 +3,21 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 
+import { useQuery } from "@apollo/react-hooks";
+import { gql } from "apollo-boost";
+import { withApollo } from "@apollo/react-hoc";
+
+export const personalInfo = gql`
+  {
+    schema_contact {
+      name
+      infrm__referral_date__c
+      client_id__c
+      birthdate
+    }
+  }
+`;
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -16,8 +31,12 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function CenteredGrid() {
+function Home() {
   const classes = useStyles();
+  // const { loading, error, data } = useQuery(schema_contact);
+
+  // if (loading) return "Loading...";
+  // if (error) return `Error! ${error.message}`;
 
   return (
     <div className={classes.root}>
@@ -62,3 +81,4 @@ export default function CenteredGrid() {
     </div>
   );
 }
+export default withApollo(Home);
