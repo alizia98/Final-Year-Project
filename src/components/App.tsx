@@ -75,7 +75,7 @@ const createApolloClient = (authToken: string) => {
 function App() {
   const { isAuthenticated, token } = useAuth0();
   const classes = useStyles();
-  console.log({ token });
+  // console.log({ token });
   const location = useLocation();
 
   // for apollo client

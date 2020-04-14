@@ -3,7 +3,8 @@ import {
   withStyles,
   Theme,
   createStyles,
-  makeStyles
+  makeStyles,
+  lighten
 } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -75,6 +76,7 @@ export default function CustomizedTables() {
   const classes = useStyles();
   let { supportId } = useParams();
   console.log("fetching id" + supportId);
+
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">

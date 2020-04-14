@@ -89,23 +89,18 @@ export default function CustomizedTables() {
         <TableBody>
           {rows.map(row => (
             <StyledTableRow key={row.name}>
-              <Link key={row.id} to={"/support/" + row.id}>
-                <StyledTableCell component="th" scope="row">
-                  {row.name}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  {row.Record_Type}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  {row.Related_project}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  {row.Created_Date}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  {row.Created_By}
-                </StyledTableCell>
-              </Link>
+              {/* <Link key={row.id} to={"/support/" + row.id}> */}
+              <StyledTableCell component="th" scope="row">
+                {row.name}
+              </StyledTableCell>
+              <StyledTableCell align="right">{row.Record_Type}</StyledTableCell>
+              <StyledTableCell align="right">
+                {row.Related_project}
+              </StyledTableCell>
+              <StyledTableCell align="right">
+                {row.Created_Date}
+              </StyledTableCell>
+              <StyledTableCell align="right">{row.Created_By}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
