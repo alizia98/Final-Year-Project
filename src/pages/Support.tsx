@@ -37,17 +37,26 @@ const StyledTableRow = withStyles((theme: Theme) =>
 )(TableRow);
 
 function createData(
+  id: number,
   name: string,
   Record_Type: string,
   Related_project: string,
   Created_Date: number,
   Created_By: string
 ) {
-  return { name, Record_Type, Related_project, Created_Date, Created_By };
+  return {
+    name,
+    id,
+    Record_Type,
+    Related_project,
+    Created_Date,
+    Created_By
+  };
 }
 
 const rows = [
   createData(
+    255,
     "PLAN-20780",
     "Homeless Outcome Star Support Plan",
     "Surrey Counselling",
@@ -79,8 +88,8 @@ export default function CustomizedTables() {
         </TableHead>
         <TableBody>
           {rows.map(row => (
-            <Link to="/SupportPlan">
-              <StyledTableRow key={row.name}>
+            <StyledTableRow key={row.name}>
+              <Link key={row.id} to={"/support/" + row.id}>
                 <StyledTableCell component="th" scope="row">
                   {row.name}
                 </StyledTableCell>
@@ -96,8 +105,8 @@ export default function CustomizedTables() {
                 <StyledTableCell align="right">
                   {row.Created_By}
                 </StyledTableCell>
-              </StyledTableRow>
-            </Link>
+              </Link>
+            </StyledTableRow>
           ))}
         </TableBody>
       </Table>

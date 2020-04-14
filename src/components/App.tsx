@@ -145,13 +145,14 @@ function App() {
                   <Route path="/action">
                     <ActionPage />
                   </Route>
-                  <Route path="/support">
+                  <Route exact={true} path="/support">
                     <SupportPage />
                   </Route>
+
                   <Route path="/maps">
                     <MapsPage />
                   </Route>
-                  <Route path="/SupportPlan">
+                  <Route path="/support/:supportId">
                     <SupportPlan />
                   </Route>
                 </Switch>
