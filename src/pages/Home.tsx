@@ -12,8 +12,6 @@ export const personal_info = gql`
   query personal_info {
     schema_contact {
       name
-      birthdate
-      client_id__c
     }
   }
 `;
@@ -35,10 +33,7 @@ export default function Home() {
   const classes = useStyles();
   const { loading, error, data } = useQuery(personal_info);
 
-  // if (loading) return "Loading...";
-  // if (error) return `Error! ${error.message}`;
-  console.log(data);
-  console.log("line 41 home.tsx");
+  console.log({ data, error, loading });
 
   return (
     <div className={classes.root}>
@@ -47,7 +42,7 @@ export default function Home() {
           <Paper className={classes.paper}>Name</Paper>
         </Grid>
         <Grid item xs={9}>
-          <Paper className={classes.paper}>_Name_</Paper>
+          <Paper className={classes.paper}>_name_</Paper>
         </Grid>
         <Grid item xs={3}>
           <Paper className={classes.paper}>Email</Paper>

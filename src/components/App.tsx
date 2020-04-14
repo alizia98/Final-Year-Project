@@ -60,20 +60,26 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function App() {
-  // for apollo client
-  const httpLink = new HttpLink({
-    uri: "https://ymj-hasura.herokuapp.com/v1/graphql"
-  });
-
-  const client = new ApolloClient({
-    link: httpLink,
+const createApolloClient = (authToken: string) => {
+  return new ApolloClient({
+    link: new HttpLink({
+      uri: "https://ymj-hasura.herokuapp.com/v1/graphql",
+      headers: {
+        Authorization: `Bearer ${authToken}`
+      }
+    }),
     cache: new InMemoryCache()
   });
-  const { isAuthenticated } = useAuth0();
-  const classes = useStyles();
+};
 
+function App() {
+  const { isAuthenticated, token } = useAuth0();
+  const classes = useStyles();
+  console.log({ token });
   const location = useLocation();
+
+  // for apollo client
+  const client = createApolloClient(token);
   // console.log(location);
   return (
     <ApolloProvider client={client}>
