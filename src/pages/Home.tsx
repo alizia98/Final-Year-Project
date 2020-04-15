@@ -13,6 +13,7 @@ export const personal_info = gql`
       birthdate
       client_id__c
       infrm__referral_date__c
+      email
     }
   }
 `;
@@ -52,7 +53,9 @@ export default function Home() {
             <Paper className={classes.paper}>Email</Paper>
           </Grid>
           <Grid item xs={9}>
-            <Paper className={classes.paper}>_Email_</Paper>
+            <Paper className={classes.paper}>
+              {data.schema_contact[0].email}
+            </Paper>
           </Grid>
           <Grid item xs={3}>
             <Paper className={classes.paper}>Client ID</Paper>
@@ -88,6 +91,6 @@ export default function Home() {
       </div>
     );
   } else {
-    return <div>data not loaded yet, please wait</div>;
+    return <div>{error}</div>;
   }
 }

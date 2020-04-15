@@ -13,6 +13,23 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Link } from "react-router-dom";
+import { gql } from "apollo-boost";
+import { useQuery } from "@apollo/react-hooks";
+
+export const listOfSupportPlans = gql`
+  query listOfSupportPlans {
+    schema_infrm__supportplan__c {
+      name
+      recordtype {
+        name
+      }
+      createddate
+      user_to_supportplan {
+        name
+      }
+    }
+  }
+`;
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
@@ -73,6 +90,17 @@ const useStyles = makeStyles({
 
 export default function CustomizedTables() {
   const classes = useStyles();
+  const { loading, error, data } = useQuery(listOfSupportPlans);
+  // const rows = [
+  //   createData(
+  //     255,
+  //     data.schema_infrm__supportplan__c.name,
+  //     data.schema_infrm__supportplan__c.recordtype.name,
+  //     "Surrey Counselling",
+  //     data.schema_infrm__supportplan__c.createddate,
+  //     data.schema_infrm__supportplan__c.user_to_supportplan.name
+  //   )
+  // ];
 
   return (
     <TableContainer component={Paper}>

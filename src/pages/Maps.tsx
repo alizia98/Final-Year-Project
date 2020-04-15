@@ -26,14 +26,14 @@ export default function MapsPage() {
     }
   ];
 
-  const captions = {
-    // columns
-    battery: "Battery Capacity",
-    design: "Design",
-    useful: "Usefulness",
-    speed: "Speed",
-    weight: "Weight"
-  };
+  // const captions = {
+  //   // columns
+  //   battery: "Battery Capacity",
+  //   design: "Design",
+  //   useful: "Usefulness",
+  //   speed: "Speed",
+  //   weight: "Weight"
+  // };
 
   return (
     <div>
