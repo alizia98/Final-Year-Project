@@ -12,6 +12,25 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import { Link } from "react-router-dom";
+import { gql } from "apollo-boost";
+import { useQuery } from "@apollo/react-hooks";
+import { indigo } from "@material-ui/core/colors";
+
+export const listOfSupportPlans = gql`
+  query listOfSupportPlans {
+    schema_infrm__supportplan__c {
+      name
+      recordtype {
+        name
+      }
+      createddate
+      user_to_supportplan {
+        name
+      }
+    }
+  }
+`;
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
@@ -36,24 +55,26 @@ const StyledTableRow = withStyles((theme: Theme) =>
 )(TableRow);
 
 function createData(
+  id: string,
   name: string,
   Timeline_Project: string,
   Record_Type: string,
   Counsellor: string,
   Start_Date: number
 ) {
-  return { name, Timeline_Project, Record_Type, Counsellor, Start_Date };
+  return { id, name, Timeline_Project, Record_Type, Counsellor, Start_Date };
 }
 
-const rows = [
-  createData(
-    "A-040559",
-    "Surrey Counselling",
-    "Counselling Action",
-    "Paul harris",
-    11
-  )
-];
+// const rows = [
+//   createData(
+//     255,
+//     "PLAN-20780",
+//     "Homeless Outcome Star Support Plan",
+//     "Surrey Counselling",
+//     11,
+//     "Paul harris"
+//   )
+// ];
 
 const useStyles = makeStyles({
   table: {
@@ -63,35 +84,51 @@ const useStyles = makeStyles({
 
 export default function CustomizedTables() {
   const classes = useStyles();
+  const { loading, error, data } = useQuery(listOfSupportPlans);
+  // console.log(loading, error, data);
 
-  return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell>Action Plan</StyledTableCell>
-            <StyledTableCell align="right">Timeline Project</StyledTableCell>
-            <StyledTableCell align="right">Record Type</StyledTableCell>
-            <StyledTableCell align="right">Counsellor</StyledTableCell>
-            <StyledTableCell align="right">Start Date</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map(row => (
-            <StyledTableRow key={row.name}>
-              <StyledTableCell component="th" scope="row">
-                {row.name}
-              </StyledTableCell>
-              <StyledTableCell align="right">
-                {row.Timeline_Project}
-              </StyledTableCell>
-              <StyledTableCell align="right">{row.Record_Type}</StyledTableCell>
-              <StyledTableCell align="right">{row.Counsellor}</StyledTableCell>
-              <StyledTableCell align="right">{row.Start_Date}</StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  );
+  if (loading == false) {
+    const rows = [createData("as", "as", "as", "as", "as", 11)];
+
+    return (
+      <TableContainer component={Paper}>
+        <Table className={classes.table} aria-label="customized table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell>Actions</StyledTableCell>
+              <StyledTableCell align="right">Timeline Project</StyledTableCell>
+              <StyledTableCell align="right">Record Type</StyledTableCell>
+              <StyledTableCell align="right">Counsellor</StyledTableCell>
+              <StyledTableCell align="right">Start Date</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map(row => (
+              <Link key={row.id} to={"/action/" + row.id}>
+                <StyledTableRow key={row.name} selected={true}>
+                  <StyledTableCell component="th" scope="row">
+                    {row.name}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {row.Timeline_Project}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {row.Record_Type}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {row.Counsellor}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {row.Start_Date}
+                  </StyledTableCell>
+                </StyledTableRow>
+              </Link>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    );
+  } else {
+    return <div>Loading...</div>;
+  }
 }

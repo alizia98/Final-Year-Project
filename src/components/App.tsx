@@ -17,6 +17,7 @@ import SupportPlan from "../pages/SupportPlan";
 import SupportPage from "../pages/Support";
 import { useLocation } from "react-router-dom";
 import { indigo } from "@material-ui/core/colors";
+import ActionDetail from "../pages/ActionDetails";
 
 const drawerWidth = 240;
 
@@ -142,18 +143,20 @@ function App() {
                   <Route exact={true} path="/">
                     <HomePage />
                   </Route>
-                  <Route path="/action">
+                  <Route exact={true} path="/action">
                     <ActionPage />
                   </Route>
                   <Route exact={true} path="/support">
                     <SupportPage />
                   </Route>
-
                   <Route path="/maps">
                     <MapsPage />
                   </Route>
                   <Route path="/support/:supportId">
                     <SupportPlan />
+                  </Route>
+                  <Route path="/action/:actionId">
+                    <ActionDetail />
                   </Route>
                 </Switch>
               </main>
