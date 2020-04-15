@@ -68,8 +68,6 @@ function createData(
   };
 }
 
-const rows = [createData("v", "v", "v", 1, 1)];
-
 const useStyles = makeStyles({
   table: {
     minWidth: 700
@@ -79,11 +77,12 @@ const useStyles = makeStyles({
 export default function CustomizedTables() {
   const classes = useStyles();
   let { actionId } = useParams();
+  console.log(actionId);
 
   const { loading, error, data } = useQuery(
     gql`
-      query MyQuery($supportId: String!) {
-        schema_infrm__action__c(where: { name: { _eq: $supportId } }) {
+      query MyQuery($actionId: String!) {
+        schema_infrm__action__c(where: { name: { _eq: $actionId } }) {
           complexity_factors__c
           contextual_problems__c
           core_score_stage__c
@@ -95,7 +94,20 @@ export default function CustomizedTables() {
     { variables: { actionId } }
   );
 
+  // console.log(loading, error, data);
+  // console.log(data.schema_infrm__action__c[0].Core_Score_Stage);
+
   if (loading == false) {
+    const rows = [
+      createData(
+        data.schema_infrm__action__c[0].complexity_factors__c,
+        data.schema_infrm__action__c[0].contextual_problems__c,
+        data.schema_infrm__action__c[0].Core_Score_Stage,
+        data.schema_infrm__action__c[0].goal_progress__c,
+        data.schema_infrm__action__c[0].core_score__c
+      )
+    ];
+
     return (
       <div>
         <div>
