@@ -57,7 +57,6 @@ function createData(
   id: number,
   name: string,
   Record_Type: string,
-  Related_project: string,
   Created_Date: number,
   Created_By: string
 ) {
@@ -65,22 +64,21 @@ function createData(
     name,
     id,
     Record_Type,
-    Related_project,
     Created_Date,
     Created_By
   };
 }
 
-const rows = [
-  createData(
-    255,
-    "PLAN-20780",
-    "Homeless Outcome Star Support Plan",
-    "Surrey Counselling",
-    11,
-    "Paul harris"
-  )
-];
+// const rows = [
+//   createData(
+//     255,
+//     "PLAN-20780",
+//     "Homeless Outcome Star Support Plan",
+//     "Surrey Counselling",
+//     11,
+//     "Paul harris"
+//   )
+// ];
 
 const useStyles = makeStyles({
   table: {
@@ -91,48 +89,54 @@ const useStyles = makeStyles({
 export default function CustomizedTables() {
   const classes = useStyles();
   const { loading, error, data } = useQuery(listOfSupportPlans);
-  // const rows = [
-  //   createData(
-  //     255,
-  //     data.schema_infrm__supportplan__c.name,
-  //     data.schema_infrm__supportplan__c.recordtype.name,
-  //     "Surrey Counselling",
-  //     data.schema_infrm__supportplan__c.createddate,
-  //     data.schema_infrm__supportplan__c.user_to_supportplan.name
-  //   )
-  // ];
+  console.log(loading, error, data);
 
-  return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell>Support Plan</StyledTableCell>
-            <StyledTableCell align="right">Record_Type</StyledTableCell>
-            <StyledTableCell align="right">Related_project</StyledTableCell>
-            <StyledTableCell align="right">Created_Date</StyledTableCell>
-            <StyledTableCell align="right">Created_By</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map(row => (
-            <StyledTableRow key={row.name}>
-              {/* <Link key={row.id} to={"/support/" + row.id}> */}
-              <StyledTableCell component="th" scope="row">
-                {row.name}
-              </StyledTableCell>
-              <StyledTableCell align="right">{row.Record_Type}</StyledTableCell>
-              <StyledTableCell align="right">
-                {row.Related_project}
-              </StyledTableCell>
-              <StyledTableCell align="right">
-                {row.Created_Date}
-              </StyledTableCell>
-              <StyledTableCell align="right">{row.Created_By}</StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  );
+  if (loading == false) {
+    const rows = [
+      createData(
+        255,
+        data.schema_infrm__supportplan__c[0].name,
+        // "Homeless Outcome Star Support Plan",
+        data.schema_infrm__supportplan__c[0].recordtype.name,
+        data.schema_infrm__supportplan__c[0].createddate,
+        data.schema_infrm__supportplan__c[0].user_to_supportplan.name
+      )
+    ];
+
+    return (
+      <TableContainer component={Paper}>
+        <Table className={classes.table} aria-label="customized table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell>Support Plan</StyledTableCell>
+              <StyledTableCell align="right">Record_Type</StyledTableCell>
+              <StyledTableCell align="right">Created_Date</StyledTableCell>
+              <StyledTableCell align="right">Created_By</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map(row => (
+              <StyledTableRow key={row.name}>
+                {/* <Link key={row.id} to={"/support/" + row.id}> */}
+                <StyledTableCell component="th" scope="row">
+                  {row.name}
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  {row.Record_Type}
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  {row.Created_Date}
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  {row.Created_By}
+                </StyledTableCell>
+              </StyledTableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    );
+  } else {
+    return <div>{error}</div>;
+  }
 }
