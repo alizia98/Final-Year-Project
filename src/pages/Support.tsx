@@ -15,6 +15,7 @@ import Paper from "@material-ui/core/Paper";
 import { Link } from "react-router-dom";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
+import { indigo } from "@material-ui/core/colors";
 
 export const listOfSupportPlans = gql`
   query listOfSupportPlans {
@@ -54,7 +55,7 @@ const StyledTableRow = withStyles((theme: Theme) =>
 )(TableRow);
 
 function createData(
-  id: number,
+  id: string,
   name: string,
   Record_Type: string,
   Created_Date: number,
@@ -89,12 +90,12 @@ const useStyles = makeStyles({
 export default function CustomizedTables() {
   const classes = useStyles();
   const { loading, error, data } = useQuery(listOfSupportPlans);
-  console.log(loading, error, data);
+  // console.log(loading, error, data);
 
   if (loading == false) {
     const rows = [
       createData(
-        255,
+        data.schema_infrm__supportplan__c[0].name,
         data.schema_infrm__supportplan__c[0].name,
         // "Homeless Outcome Star Support Plan",
         data.schema_infrm__supportplan__c[0].recordtype.name,
@@ -116,27 +117,28 @@ export default function CustomizedTables() {
           </TableHead>
           <TableBody>
             {rows.map(row => (
-              <StyledTableRow key={row.name}>
-                {/* <Link key={row.id} to={"/support/" + row.id}> */}
-                <StyledTableCell component="th" scope="row">
-                  {row.name}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  {row.Record_Type}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  {row.Created_Date}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  {row.Created_By}
-                </StyledTableCell>
-              </StyledTableRow>
+              <Link key={row.id} to={"/support/" + row.id}>
+                <StyledTableRow key={row.name} selected={true} hover={true}>
+                  <StyledTableCell component="th" scope="row">
+                    {row.name}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {row.Record_Type}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {row.Created_Date}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {row.Created_By}
+                  </StyledTableCell>
+                </StyledTableRow>
+              </Link>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
     );
   } else {
-    return <div>{error}</div>;
+    return <div>Loading...</div>;
   }
 }
