@@ -98,18 +98,48 @@ const useStyles = makeStyles({
 export default function CustomizedTables() {
   const classes = useStyles();
   let { supportId } = useParams();
-  // console.log("fetching id" + supportId);
+  console.log("fetching id: " + supportId);
 
-  const { loading, error, data } = useQuery(listOfSupportPlans);
-  console.log(loading, error, data);
+  const { loading, error, data } = useQuery(
+    gql`
+      query MyQuery($supportId: String!) {
+        schema_contact(where: { email: { _eq: "tommy@gmail.com" } }) {
+          infrm__supportplan__cs(where: { name: { _eq: $supportId } }) {
+            action_set_as1__c
+            action_set_as2__c
+            action_set_as3__c
+            action_set_as4__c
+            action_set_as5__c
+            to_be_completed_by_as1__c
+            to_be_completed_by_as2__c
+            to_be_completed_by_as3__c
+            to_be_completed_by_as4__c
+            to_be_completed_by_as5__c
+            actual_date_of_completion_as1__c
+            actual_date_of_completion_as2__c
+            actual_date_of_completion_as3__c
+            actual_date_of_completion_as4__c
+            actual_date_of_completion_as5__c
+            not_completed_as1__c
+            not_completed_as2__c
+            not_completed_as3__c
+            not_completed_as4__c
+            not_completed_as5__c
+            no_longer_relevant_as1__c
+            no_longer_relevant_as2__c
+            no_longer_relevant_as3__c
+            no_longer_relevant_as4__c
+            no_longer_relevant_as5__c
+            name
+          }
+        }
+      }
+    `,
+    { variables: { supportId } }
+  );
+  // console.log(loading, error, data);
 
   if (loading == false) {
-    console.log("first");
-    console.log(
-      data.schema_contact[0].infrm__supportplan__cs[0].no_longer_relevant_as1__c
-    );
-    console.log("second");
-
     const rows = [
       createData(
         data.schema_contact[0].infrm__supportplan__cs[0].action_set_as1__c,

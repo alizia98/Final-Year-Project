@@ -101,6 +101,14 @@ export default function CustomizedTables() {
         data.schema_infrm__supportplan__c[0].recordtype.name,
         data.schema_infrm__supportplan__c[0].createddate,
         data.schema_infrm__supportplan__c[0].user_to_supportplan.name
+      ),
+      createData(
+        data.schema_infrm__supportplan__c[1].name,
+        data.schema_infrm__supportplan__c[1].name,
+        // "Homeless Outcome Star Support Plan",
+        data.schema_infrm__supportplan__c[1].recordtype.name,
+        data.schema_infrm__supportplan__c[1].createddate,
+        data.schema_infrm__supportplan__c[1].user_to_supportplan.name
       )
     ];
 
