@@ -15,22 +15,21 @@ import Paper from "@material-ui/core/Paper";
 import { Link } from "react-router-dom";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
-import { indigo } from "@material-ui/core/colors";
 
-export const listOfSupportPlans = gql`
-  query listOfSupportPlans {
-    schema_infrm__supportplan__c {
-      name
-      recordtype {
-        name
-      }
-      createddate
-      user_to_supportplan {
-        name
-      }
-    }
-  }
-`;
+// export const listOfSupportPlans = gql`
+//   query listOfSupportPlans {
+//     schema_infrm__supportplan__c {
+//       name
+//       recordtype {
+//         name
+//       }
+//       createddate
+//       user_to_supportplan {
+//         name
+//       }
+//     }
+//   }
+// `;
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
@@ -57,12 +56,11 @@ const StyledTableRow = withStyles((theme: Theme) =>
 function createData(
   id: string,
   name: string,
-  Timeline_Project: string,
   Record_Type: string,
   Counsellor: string,
-  Start_Date: number
+  createddate: number
 ) {
-  return { id, name, Timeline_Project, Record_Type, Counsellor, Start_Date };
+  return { id, name, Record_Type, Counsellor, createddate };
 }
 
 // const rows = [
@@ -81,14 +79,40 @@ const useStyles = makeStyles({
     minWidth: 700
   }
 });
+const email = "tommy@gmail.com";
 
 export default function CustomizedTables() {
   const classes = useStyles();
-  const { loading, error, data } = useQuery(listOfSupportPlans);
+
+  const { loading, error, data } = useQuery(
+    gql`
+      query MyQuery($email: String!) {
+        schema_contact(where: { email: { _eq: $email } }) {
+          infrm__action__cs {
+            name
+            recordtype {
+              name
+            }
+            createddate
+            counsellor__c
+          }
+        }
+      }
+    `,
+    { variables: { email } }
+  );
   // console.log(loading, error, data);
 
   if (loading == false) {
-    const rows = [createData("as", "as", "as", "as", "as", 11)];
+    const rows = [
+      createData(
+        data.schema_contact[0].infrm__action__cs[0].name,
+        data.schema_contact[0].infrm__action__cs[0].name,
+        data.schema_contact[0].infrm__action__cs[0].recordtype.name,
+        data.schema_contact[0].infrm__action__cs[0].counsellor__c,
+        data.schema_contact[0].infrm__action__cs[0].createddate
+      )
+    ];
 
     return (
       <TableContainer component={Paper}>
@@ -96,10 +120,9 @@ export default function CustomizedTables() {
           <TableHead>
             <TableRow>
               <StyledTableCell>Actions</StyledTableCell>
-              <StyledTableCell align="right">Timeline Project</StyledTableCell>
               <StyledTableCell align="right">Record Type</StyledTableCell>
               <StyledTableCell align="right">Counsellor</StyledTableCell>
-              <StyledTableCell align="right">Start Date</StyledTableCell>
+              <StyledTableCell align="right">Created Date</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -110,16 +133,13 @@ export default function CustomizedTables() {
                     {row.name}
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    {row.Timeline_Project}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
                     {row.Record_Type}
                   </StyledTableCell>
                   <StyledTableCell align="right">
                     {row.Counsellor}
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    {row.Start_Date}
+                    {row.createddate}
                   </StyledTableCell>
                 </StyledTableRow>
               </Link>

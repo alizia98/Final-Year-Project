@@ -18,20 +18,17 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 
-export const listOfSupportPlans = gql`
-  query listOfSupportPlans {
-    schema_infrm__supportplan__c {
-      name
-      recordtype {
-        name
-      }
-      createddate
-      user_to_supportplan {
-        name
-      }
-    }
-  }
-`;
+// export const listOfSupportPlans = gql`
+//   query MyQuery($supportId: String!)) {
+//     schema_infrm__action__c(where: { name: { _eq: $supportId } }) {
+//       complexity_factors__c
+//       contextual_problems__c
+//       core_score_stage__c
+//       core_score__c
+//       goal_progress__c
+//     }
+//   }
+// `;
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
@@ -56,33 +53,22 @@ const StyledTableRow = withStyles((theme: Theme) =>
 )(TableRow);
 
 function createData(
-  Priority_Area: string,
-  Action: string,
-  By_Whom: string,
-  target_date: number,
-  completed_date: number,
-  Status_of_completion: string
+  Complexity_factors: string,
+  Contextual_problems: string,
+  Core_Score_Stage: string,
+  Goal_progress: number,
+  Core_score: number
 ) {
   return {
-    Priority_Area,
-    Action,
-    By_Whom,
-    target_date,
-    completed_date,
-    Status_of_completion
+    Complexity_factors,
+    Contextual_problems,
+    Core_Score_Stage,
+    Goal_progress,
+    Core_score
   };
 }
 
-const rows = [
-  createData(
-    "DRUG AND ALCOHOL MISUSE",
-    "Test Test Test Test Test",
-    "Test Test Test Test Test",
-    1,
-    1,
-    "yes"
-  )
-];
+const rows = [createData("v", "v", "v", 1, 1)];
 
 const useStyles = makeStyles({
   table: {
@@ -92,9 +78,22 @@ const useStyles = makeStyles({
 
 export default function CustomizedTables() {
   const classes = useStyles();
-  const { loading, error, data } = useQuery(listOfSupportPlans);
-
   let { actionId } = useParams();
+
+  const { loading, error, data } = useQuery(
+    gql`
+      query MyQuery($supportId: String!) {
+        schema_infrm__action__c(where: { name: { _eq: $supportId } }) {
+          complexity_factors__c
+          contextual_problems__c
+          core_score_stage__c
+          core_score__c
+          goal_progress__c
+        }
+      }
+    `,
+    { variables: { actionId } }
+  );
 
   if (loading == false) {
     return (
@@ -120,32 +119,34 @@ export default function CustomizedTables() {
           <Table className={classes.table} aria-label="customized table">
             <TableHead>
               <TableRow>
-                <StyledTableCell>Priority Area</StyledTableCell>
-                <StyledTableCell align="right">Action</StyledTableCell>
-                <StyledTableCell align="right">By whom</StyledTableCell>
-                <StyledTableCell align="right">Target date</StyledTableCell>
-                <StyledTableCell align="right">Completed date</StyledTableCell>
+                <StyledTableCell>Complexity factors</StyledTableCell>
                 <StyledTableCell align="right">
-                  Status of completion
+                  Contextual problems
                 </StyledTableCell>
+                <StyledTableCell align="right">
+                  Core Score Stage
+                </StyledTableCell>
+                <StyledTableCell align="right">Goal progress</StyledTableCell>
+                <StyledTableCell align="right">Core score</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {rows.map(row => (
-                <StyledTableRow key={row.Priority_Area}>
+                <StyledTableRow key={row.Complexity_factors}>
                   <StyledTableCell component="th" scope="row">
-                    {row.Priority_Area}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">{row.Action}</StyledTableCell>
-                  <StyledTableCell align="right">{row.By_Whom}</StyledTableCell>
-                  <StyledTableCell align="right">
-                    {row.target_date}
+                    {row.Complexity_factors}
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    {row.completed_date}
+                    {row.Contextual_problems}
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    {row.Status_of_completion}
+                    {row.Core_Score_Stage}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {row.Goal_progress}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {row.Core_score}
                   </StyledTableCell>
                 </StyledTableRow>
               ))}
