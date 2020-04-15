@@ -70,17 +70,6 @@ function createData(
   };
 }
 
-// const rows = [
-//   createData(
-//     255,
-//     "PLAN-20780",
-//     "Homeless Outcome Star Support Plan",
-//     "Surrey Counselling",
-//     11,
-//     "Paul harris"
-//   )
-// ];
-
 const useStyles = makeStyles({
   table: {
     minWidth: 700
@@ -97,7 +86,6 @@ export default function CustomizedTables() {
       createData(
         data.schema_infrm__supportplan__c[0].name,
         data.schema_infrm__supportplan__c[0].name,
-        // "Homeless Outcome Star Support Plan",
         data.schema_infrm__supportplan__c[0].recordtype.name,
         data.schema_infrm__supportplan__c[0].createddate,
         data.schema_infrm__supportplan__c[0].user_to_supportplan.name
@@ -105,10 +93,23 @@ export default function CustomizedTables() {
       createData(
         data.schema_infrm__supportplan__c[1].name,
         data.schema_infrm__supportplan__c[1].name,
-        // "Homeless Outcome Star Support Plan",
         data.schema_infrm__supportplan__c[1].recordtype.name,
         data.schema_infrm__supportplan__c[1].createddate,
         data.schema_infrm__supportplan__c[1].user_to_supportplan.name
+      ),
+      createData(
+        data.schema_infrm__supportplan__c[2].name,
+        data.schema_infrm__supportplan__c[2].name,
+        data.schema_infrm__supportplan__c[2].recordtype.name,
+        data.schema_infrm__supportplan__c[2].createddate,
+        data.schema_infrm__supportplan__c[2].user_to_supportplan.name
+      ),
+      createData(
+        data.schema_infrm__supportplan__c[3].name,
+        data.schema_infrm__supportplan__c[3].name,
+        data.schema_infrm__supportplan__c[3].recordtype.name,
+        data.schema_infrm__supportplan__c[3].createddate,
+        data.schema_infrm__supportplan__c[3].user_to_supportplan.name
       )
     ];
 

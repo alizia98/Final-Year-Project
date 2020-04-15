@@ -15,6 +15,8 @@ import Paper from "@material-ui/core/Paper";
 import { useParams } from "react-router";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
+import { Divider, Button, Grid } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 export const listOfSupportPlans = gql`
   query MyQuery {
@@ -89,16 +91,26 @@ function createData(
   };
 }
 
-const useStyles = makeStyles({
-  table: {
-    minWidth: 700
-  }
-});
+// const useStyles = makeStyles({
+//   table: {
+//     minWidth: 700
+//   }
+// });
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    table: {
+      minWidth: 700
+    },
+    root: {
+      flexGrow: 1
+    }
+  })
+);
 
 export default function CustomizedTables() {
   const classes = useStyles();
   let { supportId } = useParams();
-  console.log("fetching id: " + supportId);
+  // console.log("fetching id: " + supportId);
 
   const { loading, error, data } = useQuery(
     gql`
@@ -153,46 +165,68 @@ export default function CustomizedTables() {
     ];
 
     return (
-      <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>Action Set</StyledTableCell>
-              <StyledTableCell align="center">
-                To be completed by
-              </StyledTableCell>
-              <StyledTableCell align="center">
-                Actual Date of completion
-              </StyledTableCell>
-              <StyledTableCell align="center">Not Completed</StyledTableCell>
-              <StyledTableCell align="center">
-                No Longer Relevant
-              </StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map(row => (
-              <StyledTableRow key={row.Action_Set}>
-                <StyledTableCell component="th" scope="row">
-                  {row.Action_Set}
+      <div>
+        <div>
+          <Grid container spacing={3}>
+            <Grid item xs={9}>
+              <h1>Support Plan: {supportId}</h1>
+            </Grid>
+            <Grid item xs={3}>
+              <Button
+                variant="contained"
+                color="primary"
+                component={Link}
+                to="/support"
+              >
+                Back
+              </Button>
+            </Grid>
+          </Grid>
+        </div>
+
+        <Divider />
+
+        <TableContainer component={Paper}>
+          <Table className={classes.table} aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Action Set</StyledTableCell>
+                <StyledTableCell align="center">
+                  To be completed by
                 </StyledTableCell>
                 <StyledTableCell align="center">
-                  {row.To_be_completed_by}
+                  Actual Date of completion
                 </StyledTableCell>
+                <StyledTableCell align="center">Not Completed</StyledTableCell>
                 <StyledTableCell align="center">
-                  {row.Actual_Date_of_completion}
+                  No Longer Relevant
                 </StyledTableCell>
-                <StyledTableCell align="center">
-                  {row.Not_Completed}
-                </StyledTableCell>
-                <StyledTableCell align="center">
-                  {row.No_Longer_Relevant}
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map(row => (
+                <StyledTableRow key={row.Action_Set}>
+                  <StyledTableCell component="th" scope="row">
+                    {row.Action_Set}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {row.To_be_completed_by}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {row.Actual_Date_of_completion}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {row.Not_Completed}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {row.No_Longer_Relevant}
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
     );
   } else {
     return <div>loading...</div>;

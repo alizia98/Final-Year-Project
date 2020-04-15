@@ -13,6 +13,25 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { useParams } from "react-router";
+import { Grid, Button } from "@material-ui/core";
+import { Link } from "react-router-dom";
+import { useQuery } from "@apollo/react-hooks";
+import { gql } from "apollo-boost";
+
+export const listOfSupportPlans = gql`
+  query listOfSupportPlans {
+    schema_infrm__supportplan__c {
+      name
+      recordtype {
+        name
+      }
+      createddate
+      user_to_supportplan {
+        name
+      }
+    }
+  }
+`;
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
@@ -73,43 +92,69 @@ const useStyles = makeStyles({
 
 export default function CustomizedTables() {
   const classes = useStyles();
+  const { loading, error, data } = useQuery(listOfSupportPlans);
 
   let { actionId } = useParams();
 
-  return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell>Priority Area</StyledTableCell>
-            <StyledTableCell align="right">Action</StyledTableCell>
-            <StyledTableCell align="right">By whom</StyledTableCell>
-            <StyledTableCell align="right">Target date</StyledTableCell>
-            <StyledTableCell align="right">Completed date</StyledTableCell>
-            <StyledTableCell align="right">
-              Status of completion
-            </StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map(row => (
-            <StyledTableRow key={row.Priority_Area}>
-              <StyledTableCell component="th" scope="row">
-                {row.Priority_Area}
-              </StyledTableCell>
-              <StyledTableCell align="right">{row.Action}</StyledTableCell>
-              <StyledTableCell align="right">{row.By_Whom}</StyledTableCell>
-              <StyledTableCell align="right">{row.target_date}</StyledTableCell>
-              <StyledTableCell align="right">
-                {row.completed_date}
-              </StyledTableCell>
-              <StyledTableCell align="right">
-                {row.Status_of_completion}
-              </StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  );
+  if (loading == false) {
+    return (
+      <div>
+        <div>
+          <Grid container spacing={3}>
+            <Grid item xs={9}>
+              <h1>Action Plan: {actionId}</h1>
+            </Grid>
+            <Grid item xs={3}>
+              <Button
+                variant="contained"
+                color="primary"
+                component={Link}
+                to="/action"
+              >
+                Back
+              </Button>
+            </Grid>
+          </Grid>
+        </div>
+        <TableContainer component={Paper}>
+          <Table className={classes.table} aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Priority Area</StyledTableCell>
+                <StyledTableCell align="right">Action</StyledTableCell>
+                <StyledTableCell align="right">By whom</StyledTableCell>
+                <StyledTableCell align="right">Target date</StyledTableCell>
+                <StyledTableCell align="right">Completed date</StyledTableCell>
+                <StyledTableCell align="right">
+                  Status of completion
+                </StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map(row => (
+                <StyledTableRow key={row.Priority_Area}>
+                  <StyledTableCell component="th" scope="row">
+                    {row.Priority_Area}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">{row.Action}</StyledTableCell>
+                  <StyledTableCell align="right">{row.By_Whom}</StyledTableCell>
+                  <StyledTableCell align="right">
+                    {row.target_date}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {row.completed_date}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {row.Status_of_completion}
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
+    );
+  } else {
+    return <div>loading....</div>;
+  }
 }
