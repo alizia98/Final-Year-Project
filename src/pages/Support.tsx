@@ -54,22 +54,6 @@ const StyledTableRow = withStyles((theme: Theme) =>
   })
 )(TableRow);
 
-function createData(
-  id: string,
-  name: string,
-  Record_Type: string,
-  Created_Date: number,
-  Created_By: string
-) {
-  return {
-    name,
-    id,
-    Record_Type,
-    Created_Date,
-    Created_By
-  };
-}
-
 const useStyles = makeStyles({
   table: {
     minWidth: 700
@@ -79,75 +63,53 @@ const useStyles = makeStyles({
 export default function CustomizedTables() {
   const classes = useStyles();
   const { loading, error, data } = useQuery(listOfSupportPlans);
-  // console.log(loading, error, data);
 
-  if (loading == false) {
-    const rows = [
-      createData(
-        data.schema_infrm__supportplan__c[0].name,
-        data.schema_infrm__supportplan__c[0].name,
-        data.schema_infrm__supportplan__c[0].recordtype.name,
-        data.schema_infrm__supportplan__c[0].createddate,
-        data.schema_infrm__supportplan__c[0].user_to_supportplan.name
-      ),
-      createData(
-        data.schema_infrm__supportplan__c[1].name,
-        data.schema_infrm__supportplan__c[1].name,
-        data.schema_infrm__supportplan__c[1].recordtype.name,
-        data.schema_infrm__supportplan__c[1].createddate,
-        data.schema_infrm__supportplan__c[1].user_to_supportplan.name
-      ),
-      createData(
-        data.schema_infrm__supportplan__c[2].name,
-        data.schema_infrm__supportplan__c[2].name,
-        data.schema_infrm__supportplan__c[2].recordtype.name,
-        data.schema_infrm__supportplan__c[2].createddate,
-        data.schema_infrm__supportplan__c[2].user_to_supportplan.name
-      ),
-      createData(
-        data.schema_infrm__supportplan__c[3].name,
-        data.schema_infrm__supportplan__c[3].name,
-        data.schema_infrm__supportplan__c[3].recordtype.name,
-        data.schema_infrm__supportplan__c[3].createddate,
-        data.schema_infrm__supportplan__c[3].user_to_supportplan.name
-      )
-    ];
+  if (error) {
+    return <h1> Got back error : {error}</h1>;
+  }
+  if (loading == true) {
+    return <div>Loading...</div>;
+  }
 
-    return (
-      <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>Support Plan</StyledTableCell>
-              <StyledTableCell align="right">Record_Type</StyledTableCell>
-              <StyledTableCell align="right">Created_Date</StyledTableCell>
-              <StyledTableCell align="right">Created_By</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map(row => (
-              <Link key={row.id} to={"/support/" + row.id}>
+  return (
+    <TableContainer component={Paper}>
+      <Table className={classes.table} aria-label="customized table">
+        <TableHead>
+          <TableRow>
+            <StyledTableCell>Support Plan</StyledTableCell>
+            <StyledTableCell align="right">Record_Type</StyledTableCell>
+            <StyledTableCell align="right">Created_Date</StyledTableCell>
+            <StyledTableCell align="right">Created_By</StyledTableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {data.schema_infrm__supportplan__c.map(
+            (row: {
+              name: string;
+              recordtype: { name: string };
+              craeteddate: string;
+              user_to_supportplan: { name: string };
+            }) => (
+              <Link key={row.name} to={"/support/" + row.name}>
                 <StyledTableRow key={row.name} selected={true} hover={true}>
                   <StyledTableCell component="th" scope="row">
                     {row.name}
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    {row.Record_Type}
+                    {row.recordtype.name}
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    {row.Created_Date}
+                    {row.craeteddate}
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    {row.Created_By}
+                    {row.user_to_supportplan.name}
                   </StyledTableCell>
                 </StyledTableRow>
               </Link>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    );
-  } else {
-    return <div>Loading...</div>;
-  }
+            )
+          )}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
 }

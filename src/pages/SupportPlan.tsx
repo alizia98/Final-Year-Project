@@ -167,7 +167,7 @@ export default function CustomizedTables() {
     return (
       <div>
         <div>
-          <Grid container spacing={3}>
+          <Grid container spacing={3} alignContent="center">
             <Grid item xs={9}>
               <h1>Support Plan: {supportId}</h1>
             </Grid>
