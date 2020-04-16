@@ -36,61 +36,56 @@ export default function Home() {
   const { loading, error, data } = useQuery(personal_info);
 
   // console.log({ data, error, loading });
+  // console.log(this.props.name);
 
-  if (loading === false) {
-    return (
-      <div className={classes.root}>
-        <Grid container spacing={3}>
-          <Grid item xs={3}>
-            <Paper className={classes.paper}>Name</Paper>
-          </Grid>
-          <Grid item xs={9}>
-            <Paper className={classes.paper}>
-              {data.schema_contact[0].name}
-            </Paper>
-          </Grid>
-          <Grid item xs={3}>
-            <Paper className={classes.paper}>Email</Paper>
-          </Grid>
-          <Grid item xs={9}>
-            <Paper className={classes.paper}>
-              {data.schema_contact[0].email}
-            </Paper>
-          </Grid>
-          <Grid item xs={3}>
-            <Paper className={classes.paper}>Client ID</Paper>
-          </Grid>
-          <Grid item xs={9}>
-            <Paper className={classes.paper}>
-              {data.schema_contact[0].client_id__c}
-            </Paper>
-          </Grid>
-          {/* <Grid item xs={3}>
-            <Paper className={classes.paper}>Support Agency Name</Paper>
-          </Grid>
-          <Grid item xs={9}>
-            <Paper className={classes.paper}>_SupportAgencyName_</Paper>
-          </Grid> */}
-          <Grid item xs={3}>
-            <Paper className={classes.paper}>Date of Birth</Paper>
-          </Grid>
-          <Grid item xs={9}>
-            <Paper className={classes.paper}>
-              {data.schema_contact[0].birthdate}
-            </Paper>
-          </Grid>
-          <Grid item xs={3}>
-            <Paper className={classes.paper}>Referral Date</Paper>
-          </Grid>
-          <Grid item xs={9}>
-            <Paper className={classes.paper}>
-              {data.schema_contact[0].infrm__referral_date__c}
-            </Paper>
-          </Grid>
-        </Grid>
-      </div>
-    );
-  } else {
-    return <div>{error}</div>;
+  if (loading === true) {
+    return <div>Loading...</div>;
   }
+  if (error) {
+    return <h1> Got back error : {error}</h1>;
+  }
+  return (
+    <div className={classes.root}>
+      <Grid container spacing={3}>
+        <Grid item xs={3}>
+          <Paper className={classes.paper}>Name</Paper>
+        </Grid>
+        <Grid item xs={9}>
+          <Paper className={classes.paper}>{data.schema_contact[0].name}</Paper>
+        </Grid>
+        <Grid item xs={3}>
+          <Paper className={classes.paper}>Email</Paper>
+        </Grid>
+        <Grid item xs={9}>
+          <Paper className={classes.paper}>
+            {data.schema_contact[0].email}
+          </Paper>
+        </Grid>
+        <Grid item xs={3}>
+          <Paper className={classes.paper}>Client ID</Paper>
+        </Grid>
+        <Grid item xs={9}>
+          <Paper className={classes.paper}>
+            {data.schema_contact[0].client_id__c}
+          </Paper>
+        </Grid>
+        <Grid item xs={3}>
+          <Paper className={classes.paper}>Date of Birth</Paper>
+        </Grid>
+        <Grid item xs={9}>
+          <Paper className={classes.paper}>
+            {data.schema_contact[0].birthdate}
+          </Paper>
+        </Grid>
+        <Grid item xs={3}>
+          <Paper className={classes.paper}>Referral Date</Paper>
+        </Grid>
+        <Grid item xs={9}>
+          <Paper className={classes.paper}>
+            {data.schema_contact[0].infrm__referral_date__c}
+          </Paper>
+        </Grid>
+      </Grid>
+    </div>
+  );
 }

@@ -16,20 +16,41 @@ import { Link } from "react-router-dom";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 
-export const listOfSupportPlans = gql`
-  query listOfSupportPlans {
-    schema_infrm__supportplan__c {
-      name
-      recordtype {
-        name
-      }
-      createddate
-      user_to_supportplan {
-        name
-      }
-    }
-  }
-`;
+// export const listOfSupportPlans = gql`
+//   query listOfSupportPlans {
+//     schema_infrm__supportplan__c {
+//       name
+//       recordtype {
+//         name
+//       }
+//       createddate
+//       user_to_supportplan {
+//         name
+//       }
+//     }
+//   }
+// `;
+// const email = "tommy@gmail.com";
+
+// const { loading, error, data } = useQuery(
+//   gql`
+//     query MyQuery($email: String!) {
+//       schema_contact(where: { email: { _eq: $email } }) {
+//         infrm__supportplan__cs {
+//           name
+//           recordtype {
+//             name
+//           }
+//           createddate
+//           user_to_supportplan {
+//             name
+//           }
+//         }
+//       }
+//     }
+//   `,
+//   { variables: { email } }
+// );
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
@@ -51,7 +72,29 @@ const useStyles = makeStyles({
 
 export default function CustomizedTables() {
   const classes = useStyles();
-  const { loading, error, data } = useQuery(listOfSupportPlans);
+  const email = "tommy@gmail.com";
+
+  const { loading, error, data } = useQuery(
+    gql`
+      query MyQuery($email: String!) {
+        schema_contact(where: { email: { _eq: $email } }) {
+          infrm__supportplan__cs {
+            name
+            recordtype {
+              name
+            }
+            createddate
+            user_to_supportplan {
+              name
+            }
+          }
+        }
+      }
+    `,
+    { variables: { email } }
+  );
+
+  console.log(loading, error, data);
 
   if (loading === true) {
     return <div>Loading...</div>;
@@ -72,7 +115,7 @@ export default function CustomizedTables() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.schema_infrm__supportplan__c.map(
+          {data.schema_contact[0].infrm__supportplan__cs.map(
             (row: {
               name: string;
               recordtype: { name: string };
