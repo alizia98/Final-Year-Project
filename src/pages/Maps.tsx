@@ -1,66 +1,38 @@
 import React from "react";
-// import RadarChart from "react-svg-radar-chart";
-import "react-svg-radar-chart/build/css/index.css";
+import { Radar } from "react-chartjs-2";
 
-export default function MapsPage() {
-  // const data = [
-  //   {
-  //     data: {
-  //       battery: 0.7,
-  //       design: 0.8,
-  //       useful: 0.9,
-  //       speed: 0.67,
-  //       weight: 0.8
-  //     },
-  //     meta: { color: "blue" }
-  //   },
-  //   {
-  //     data: {
-  //       battery: 0.6,
-  //       design: 0.85,
-  //       useful: 0.5,
-  //       speed: 0.6,
-  //       weight: 0.7
-  //     },
-  //     meta: { color: "red" }
-  //   }
-  // ];
-
-  // const captions = {
-  //   // columns
-  //   battery: "Battery Capacity",
-  //   design: "Design",
-  //   useful: "Usefulness",
-  //   speed: "Speed",
-  //   weight: "Weight"
-  // };
-
+export default function map() {
+  // displayName: "RadarExample";
+  const data = {
+    labels: [
+      "Motivation taking responsibility",
+      "Managing money staff",
+      "Social networks relationships",
+      "Self care living skills staff",
+      "Score drug alcohol misuse",
+      "Physical health staff",
+      "Emotional mental health staff",
+      "Meaningful use time staff",
+      "Managing tenancy accommodation staff",
+      "Offending staff"
+    ],
+    datasets: [
+      {
+        label: "",
+        backgroundColor: "rgba(255,99,132,0.2)",
+        borderColor: "rgba(255,99,132,1)",
+        pointBackgroundColor: "rgba(255,99,132,1)",
+        pointBorderColor: "#fff",
+        pointHoverBackgroundColor: "#fff",
+        pointHoverBorderColor: "rgba(255,99,132,1)",
+        data: [28, 48, 40, 19, 96, 27, 100, 34, 56, 69]
+      }
+    ]
+  };
   return (
     <div>
-      {/* <RadarChart
-        captions={{
-          // columns
-          battery: "Battery Capacity",
-          design: "Design",
-          useful: "Usefulness",
-          speed: "Speed",
-          weight: "Weight"
-        }}
-        data={[
-          // data
-          {
-            data: {
-              battery: 0.7,
-              design: 0.8,
-              useful: 0.9,
-              speed: 0.67,
-              weight: 0.8
-            },
-            meta: { color: "#58FCEC" }
-          }
-        ]}
-        size={400}
-      /> */}
+      <h2>Radar Example</h2>
+      <Radar data={data} />
     </div>
   );
 }

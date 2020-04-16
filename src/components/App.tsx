@@ -76,7 +76,7 @@ const createApolloClient = (authToken: string) => {
 function App() {
   const { isAuthenticated, token, user } = useAuth0();
 
-  console.log(user);
+  // console.log(user);
 
   const email = "tommy@gmail.com";
   // console.log(email);

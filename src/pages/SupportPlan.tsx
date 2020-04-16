@@ -17,6 +17,7 @@ import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 import { Divider, Button, Grid } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import { Radar } from "react-chartjs-2";
 
 export const listOfSupportPlans = gql`
   query MyQuery {
@@ -91,11 +92,6 @@ function createData(
   };
 }
 
-// const useStyles = makeStyles({
-//   table: {
-//     minWidth: 700
-//   }
-// });
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     table: {
@@ -115,7 +111,7 @@ export default function CustomizedTables() {
   const { loading, error, data } = useQuery(
     gql`
       query MyQuery($supportId: String!) {
-        schema_contact(where: { email: { _eq: "tommy@gmail.com" } }) {
+        schema_contact {
           infrm__supportplan__cs(where: { name: { _eq: $supportId } }) {
             action_set_as1__c
             action_set_as2__c
@@ -143,13 +139,23 @@ export default function CustomizedTables() {
             no_longer_relevant_as4__c
             no_longer_relevant_as5__c
             name
+            infrm__x1_motivation_taking_responsibility_staf__c
+            infrm__x2_self_care_living_skills_staff__c
+            infrm__x3_managing_money_staff__c
+            infrm__x4_social_networks_relationships_staff__c
+            infrm__x5_score5_drug_alcohol_misuse_staff__c
+            infrm__x6_physical_health_staff__c
+            infrm__x7_emotional_mental_health_staff__c
+            infrm__x8_meaningful_use_time_staff__c
+            infrm__x9_managing_tenancy_accommodation_staff__c
+            infrm__x10_offending_staff__c
           }
         }
       }
     `,
     { variables: { supportId } }
   );
-  // console.log(loading, error, data);
+
   if (error) {
     return <h1> Got back error : {error}</h1>;
   }
@@ -157,6 +163,73 @@ export default function CustomizedTables() {
   if (loading === true) {
     return <h1>loading...</h1>;
   }
+
+  const chart_data = {
+    labels: [
+      "Motivation taking responsibility",
+      "Managing money staff",
+      "Social networks relationships",
+      "Self care living skills staff",
+      "Score drug alcohol misuse",
+      "Physical health staff",
+      "Emotional mental health staff",
+      "Meaningful use time staff",
+      "Managing tenancy accommodation staff",
+      "Offending staff"
+    ],
+    datasets: [
+      {
+        label: "",
+        backgroundColor: "rgba(255,99,132,0.2)",
+        borderColor: "rgba(255,99,132,1)",
+        pointBackgroundColor: "rgba(255,99,132,1)",
+        pointBorderColor: "#fff",
+        pointHoverBackgroundColor: "#fff",
+        pointHoverBorderColor: "rgba(255,99,132,1)",
+        data: [
+          data.schema_contact[0].infrm__supportplan__cs[0].infrm__x1_motivation_taking_responsibility_staf__c.charAt(
+            0
+          ),
+          data.schema_contact[0].infrm__supportplan__cs[0].infrm__x2_self_care_living_skills_staff__c.charAt(
+            0
+          ),
+          data.schema_contact[0].infrm__supportplan__cs[0].infrm__x3_managing_money_staff__c.charAt(
+            0
+          ),
+          data.schema_contact[0].infrm__supportplan__cs[0].infrm__x4_social_networks_relationships_staff__c.charAt(
+            0
+          ),
+          data.schema_contact[0].infrm__supportplan__cs[0].infrm__x5_score5_drug_alcohol_misuse_staff__c.charAt(
+            0
+          ),
+          data.schema_contact[0].infrm__supportplan__cs[0].infrm__x6_physical_health_staff__c.charAt(
+            0
+          ),
+          data.schema_contact[0].infrm__supportplan__cs[0].infrm__x7_emotional_mental_health_staff__c.charAt(
+            0
+          ),
+          data.schema_contact[0].infrm__supportplan__cs[0].infrm__x8_meaningful_use_time_staff__c.charAt(
+            0
+          ),
+          data.schema_contact[0].infrm__supportplan__cs[0].infrm__x9_managing_tenancy_accommodation_staff__c.charAt(
+            0
+          ),
+          data.schema_contact[0].infrm__supportplan__cs[0].infrm__x10_offending_staff__c.charAt(
+            0
+          )
+        ]
+      }
+    ]
+  };
+  // console.log(loading, error, data);
+
+  console.log("hello");
+  console.log(
+    data.schema_contact[0].infrm__supportplan__cs[0].infrm__x4_social_networks_relationships_staff__c.charAt(
+      0
+    )
+  );
+
   const rows = [
     createData(
       data.schema_contact[0].infrm__supportplan__cs[0].action_set_as1__c,
@@ -267,6 +340,10 @@ export default function CustomizedTables() {
           </TableBody>
         </Table>
       </TableContainer>
+      <div>
+        <h2>Star Chart</h2>
+        <Radar data={chart_data} />
+      </div>
     </div>
   );
 }
