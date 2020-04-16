@@ -120,29 +120,34 @@ export default function CustomizedTables() {
           <TableHead>
             <TableRow>
               <StyledTableCell>Actions</StyledTableCell>
-              <StyledTableCell align="right">Record Type</StyledTableCell>
-              <StyledTableCell align="right">Counsellor</StyledTableCell>
-              <StyledTableCell align="right">Created Date</StyledTableCell>
+              <StyledTableCell align="center">Record Type</StyledTableCell>
+              <StyledTableCell align="center">Counsellor</StyledTableCell>
+              <StyledTableCell align="center">Created Date</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {rows.map(row => (
-              <Link key={row.id} to={"/action/" + row.id}>
-                <StyledTableRow key={row.name} selected={true}>
-                  <StyledTableCell component="th" scope="row">
-                    {row.name}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {row.Record_Type}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {row.Counsellor}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {row.createddate}
-                  </StyledTableCell>
-                </StyledTableRow>
-              </Link>
+              // <Link key={row.id} to={"/action/" + row.id}>
+              <TableRow
+                key={row.name}
+                hover={true}
+                component={Link}
+                to={"/action/" + row.id}
+              >
+                <StyledTableCell component="th" scope="row">
+                  {row.name}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {row.Record_Type}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {row.Counsellor}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {row.createddate}
+                </StyledTableCell>
+              </TableRow>
+              // </Link>
             ))}
           </TableBody>
         </Table>

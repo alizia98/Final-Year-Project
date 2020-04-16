@@ -77,9 +77,9 @@ export default function CustomizedTables() {
         <TableHead>
           <TableRow>
             <StyledTableCell>Support Plan</StyledTableCell>
-            <StyledTableCell align="right">Record_Type</StyledTableCell>
-            <StyledTableCell align="right">Created_Date</StyledTableCell>
-            <StyledTableCell align="right">Created_By</StyledTableCell>
+            <StyledTableCell align="center">Record Type</StyledTableCell>
+            <StyledTableCell align="center">Created Date</StyledTableCell>
+            <StyledTableCell align="center">Created By</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -87,25 +87,31 @@ export default function CustomizedTables() {
             (row: {
               name: string;
               recordtype: { name: string };
-              craeteddate: string;
+              createddate: string;
               user_to_supportplan: { name: string };
             }) => (
-              <Link key={row.name} to={"/support/" + row.name}>
-                <StyledTableRow key={row.name} selected={true} hover={true}>
-                  <StyledTableCell component="th" scope="row">
-                    {row.name}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {row.recordtype.name}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {row.craeteddate}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {row.user_to_supportplan.name}
-                  </StyledTableCell>
-                </StyledTableRow>
-              </Link>
+              // <Link to={"/support/" + row.name}>
+              <TableRow
+                key={row.name}
+                // selected={true}
+                hover={true}
+                component={Link}
+                to={"/support/" + row.name}
+              >
+                <StyledTableCell component="th" scope="row">
+                  {row.name}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {row.recordtype.name}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {row.createddate}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {row.user_to_supportplan.name}
+                </StyledTableCell>
+              </TableRow>
+              // </Link>
             )
           )}
         </TableBody>

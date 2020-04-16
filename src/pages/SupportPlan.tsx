@@ -161,6 +161,42 @@ export default function CustomizedTables() {
           .actual_date_of_completion_as1__c,
         data.schema_contact[0].infrm__supportplan__cs[0].not_completed_as1__c.toString(),
         data.schema_contact[0].infrm__supportplan__cs[0].no_longer_relevant_as1__c.toString()
+      ),
+      createData(
+        data.schema_contact[0].infrm__supportplan__cs[0].action_set_as2__c,
+        data.schema_contact[0].infrm__supportplan__cs[0]
+          .to_be_completed_by_as2__c,
+        data.schema_contact[0].infrm__supportplan__cs[0]
+          .actual_date_of_completion_as2__c,
+        data.schema_contact[0].infrm__supportplan__cs[0].not_completed_as2__c.toString(),
+        data.schema_contact[0].infrm__supportplan__cs[0].no_longer_relevant_as2__c.toString()
+      ),
+      createData(
+        data.schema_contact[0].infrm__supportplan__cs[0].action_set_as3__c,
+        data.schema_contact[0].infrm__supportplan__cs[0]
+          .to_be_completed_by_as3__c,
+        data.schema_contact[0].infrm__supportplan__cs[0]
+          .actual_date_of_completion_as3__c,
+        data.schema_contact[0].infrm__supportplan__cs[0].not_completed_as3__c.toString(),
+        data.schema_contact[0].infrm__supportplan__cs[0].no_longer_relevant_as3__c.toString()
+      ),
+      createData(
+        data.schema_contact[0].infrm__supportplan__cs[0].action_set_as4__c,
+        data.schema_contact[0].infrm__supportplan__cs[0]
+          .to_be_completed_by_as4__c,
+        data.schema_contact[0].infrm__supportplan__cs[0]
+          .actual_date_of_completion_as4__c,
+        data.schema_contact[0].infrm__supportplan__cs[0].not_completed_as4__c.toString(),
+        data.schema_contact[0].infrm__supportplan__cs[0].no_longer_relevant_as4__c.toString()
+      ),
+      createData(
+        data.schema_contact[0].infrm__supportplan__cs[0].action_set_as5__c,
+        data.schema_contact[0].infrm__supportplan__cs[0]
+          .to_be_completed_by_as5__c,
+        data.schema_contact[0].infrm__supportplan__cs[0]
+          .actual_date_of_completion_as5__c,
+        data.schema_contact[0].infrm__supportplan__cs[0].not_completed_as5__c.toString(),
+        data.schema_contact[0].infrm__supportplan__cs[0].no_longer_relevant_as5__c.toString()
       )
     ];
 

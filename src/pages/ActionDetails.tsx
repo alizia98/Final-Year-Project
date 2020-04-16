@@ -77,7 +77,7 @@ const useStyles = makeStyles({
 export default function CustomizedTables() {
   const classes = useStyles();
   let { actionId } = useParams();
-  console.log(actionId);
+  // console.log(actionId);
 
   const { loading, error, data } = useQuery(
     gql`

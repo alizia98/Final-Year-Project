@@ -75,7 +75,7 @@ const createApolloClient = (authToken: string) => {
 
 function App() {
   const { isAuthenticated, token, user } = useAuth0();
-  console.log({ user });
+  // console.log({ user });
 
   const classes = useStyles();
   // console.log({ token });
