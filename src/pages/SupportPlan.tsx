@@ -150,121 +150,123 @@ export default function CustomizedTables() {
     { variables: { supportId } }
   );
   // console.log(loading, error, data);
-
-  if (loading == false) {
-    const rows = [
-      createData(
-        data.schema_contact[0].infrm__supportplan__cs[0].action_set_as1__c,
-        data.schema_contact[0].infrm__supportplan__cs[0]
-          .to_be_completed_by_as1__c,
-        data.schema_contact[0].infrm__supportplan__cs[0]
-          .actual_date_of_completion_as1__c,
-        data.schema_contact[0].infrm__supportplan__cs[0].not_completed_as1__c.toString(),
-        data.schema_contact[0].infrm__supportplan__cs[0].no_longer_relevant_as1__c.toString()
-      ),
-      createData(
-        data.schema_contact[0].infrm__supportplan__cs[0].action_set_as2__c,
-        data.schema_contact[0].infrm__supportplan__cs[0]
-          .to_be_completed_by_as2__c,
-        data.schema_contact[0].infrm__supportplan__cs[0]
-          .actual_date_of_completion_as2__c,
-        data.schema_contact[0].infrm__supportplan__cs[0].not_completed_as2__c.toString(),
-        data.schema_contact[0].infrm__supportplan__cs[0].no_longer_relevant_as2__c.toString()
-      ),
-      createData(
-        data.schema_contact[0].infrm__supportplan__cs[0].action_set_as3__c,
-        data.schema_contact[0].infrm__supportplan__cs[0]
-          .to_be_completed_by_as3__c,
-        data.schema_contact[0].infrm__supportplan__cs[0]
-          .actual_date_of_completion_as3__c,
-        data.schema_contact[0].infrm__supportplan__cs[0].not_completed_as3__c.toString(),
-        data.schema_contact[0].infrm__supportplan__cs[0].no_longer_relevant_as3__c.toString()
-      ),
-      createData(
-        data.schema_contact[0].infrm__supportplan__cs[0].action_set_as4__c,
-        data.schema_contact[0].infrm__supportplan__cs[0]
-          .to_be_completed_by_as4__c,
-        data.schema_contact[0].infrm__supportplan__cs[0]
-          .actual_date_of_completion_as4__c,
-        data.schema_contact[0].infrm__supportplan__cs[0].not_completed_as4__c.toString(),
-        data.schema_contact[0].infrm__supportplan__cs[0].no_longer_relevant_as4__c.toString()
-      ),
-      createData(
-        data.schema_contact[0].infrm__supportplan__cs[0].action_set_as5__c,
-        data.schema_contact[0].infrm__supportplan__cs[0]
-          .to_be_completed_by_as5__c,
-        data.schema_contact[0].infrm__supportplan__cs[0]
-          .actual_date_of_completion_as5__c,
-        data.schema_contact[0].infrm__supportplan__cs[0].not_completed_as5__c.toString(),
-        data.schema_contact[0].infrm__supportplan__cs[0].no_longer_relevant_as5__c.toString()
-      )
-    ];
-
-    return (
-      <div>
-        <div>
-          <Grid container spacing={3} alignContent="center">
-            <Grid item xs={9}>
-              <h1>Support Plan: {supportId}</h1>
-            </Grid>
-            <Grid item xs={3}>
-              <Button
-                variant="contained"
-                color="primary"
-                component={Link}
-                to="/support"
-              >
-                Back
-              </Button>
-            </Grid>
-          </Grid>
-        </div>
-
-        <Divider />
-
-        <TableContainer component={Paper}>
-          <Table className={classes.table} aria-label="customized table">
-            <TableHead>
-              <TableRow>
-                <StyledTableCell>Action Set</StyledTableCell>
-                <StyledTableCell align="center">
-                  To be completed by
-                </StyledTableCell>
-                <StyledTableCell align="center">
-                  Actual Date of completion
-                </StyledTableCell>
-                <StyledTableCell align="center">Not Completed</StyledTableCell>
-                <StyledTableCell align="center">
-                  No Longer Relevant
-                </StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map(row => (
-                <StyledTableRow key={row.Action_Set}>
-                  <StyledTableCell component="th" scope="row">
-                    {row.Action_Set}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">
-                    {row.To_be_completed_by}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">
-                    {row.Actual_Date_of_completion}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">
-                    {row.Not_Completed}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">
-                    {row.No_Longer_Relevant}
-                  </StyledTableCell>
-                </StyledTableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </div>
-    );
-  } else {
-    return <div>loading...</div>;
+  if (error) {
+    return <h1> Got back error : {error}</h1>;
   }
+
+  if (loading === true) {
+    return <h1>loading...</h1>;
+  }
+  const rows = [
+    createData(
+      data.schema_contact[0].infrm__supportplan__cs[0].action_set_as1__c,
+      data.schema_contact[0].infrm__supportplan__cs[0]
+        .to_be_completed_by_as1__c,
+      data.schema_contact[0].infrm__supportplan__cs[0]
+        .actual_date_of_completion_as1__c,
+      data.schema_contact[0].infrm__supportplan__cs[0].not_completed_as1__c.toString(),
+      data.schema_contact[0].infrm__supportplan__cs[0].no_longer_relevant_as1__c.toString()
+    ),
+    createData(
+      data.schema_contact[0].infrm__supportplan__cs[0].action_set_as2__c,
+      data.schema_contact[0].infrm__supportplan__cs[0]
+        .to_be_completed_by_as2__c,
+      data.schema_contact[0].infrm__supportplan__cs[0]
+        .actual_date_of_completion_as2__c,
+      data.schema_contact[0].infrm__supportplan__cs[0].not_completed_as2__c.toString(),
+      data.schema_contact[0].infrm__supportplan__cs[0].no_longer_relevant_as2__c.toString()
+    ),
+    createData(
+      data.schema_contact[0].infrm__supportplan__cs[0].action_set_as3__c,
+      data.schema_contact[0].infrm__supportplan__cs[0]
+        .to_be_completed_by_as3__c,
+      data.schema_contact[0].infrm__supportplan__cs[0]
+        .actual_date_of_completion_as3__c,
+      data.schema_contact[0].infrm__supportplan__cs[0].not_completed_as3__c.toString(),
+      data.schema_contact[0].infrm__supportplan__cs[0].no_longer_relevant_as3__c.toString()
+    ),
+    createData(
+      data.schema_contact[0].infrm__supportplan__cs[0].action_set_as4__c,
+      data.schema_contact[0].infrm__supportplan__cs[0]
+        .to_be_completed_by_as4__c,
+      data.schema_contact[0].infrm__supportplan__cs[0]
+        .actual_date_of_completion_as4__c,
+      data.schema_contact[0].infrm__supportplan__cs[0].not_completed_as4__c.toString(),
+      data.schema_contact[0].infrm__supportplan__cs[0].no_longer_relevant_as4__c.toString()
+    ),
+    createData(
+      data.schema_contact[0].infrm__supportplan__cs[0].action_set_as5__c,
+      data.schema_contact[0].infrm__supportplan__cs[0]
+        .to_be_completed_by_as5__c,
+      data.schema_contact[0].infrm__supportplan__cs[0]
+        .actual_date_of_completion_as5__c,
+      data.schema_contact[0].infrm__supportplan__cs[0].not_completed_as5__c.toString(),
+      data.schema_contact[0].infrm__supportplan__cs[0].no_longer_relevant_as5__c.toString()
+    )
+  ];
+
+  return (
+    <div>
+      <div>
+        <Grid container spacing={3} alignContent="center">
+          <Grid item xs={9}>
+            <h1>Support Plan: {supportId}</h1>
+          </Grid>
+          <Grid item xs={3}>
+            <Button
+              variant="contained"
+              color="primary"
+              component={Link}
+              to="/support"
+            >
+              Back
+            </Button>
+          </Grid>
+        </Grid>
+      </div>
+
+      <Divider />
+
+      <TableContainer component={Paper}>
+        <Table className={classes.table} aria-label="customized table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell>Action Set</StyledTableCell>
+              <StyledTableCell align="center">
+                To be completed by
+              </StyledTableCell>
+              <StyledTableCell align="center">
+                Actual Date of completion
+              </StyledTableCell>
+              <StyledTableCell align="center">Not Completed</StyledTableCell>
+              <StyledTableCell align="center">
+                No Longer Relevant
+              </StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map(row => (
+              <StyledTableRow key={row.Action_Set}>
+                <StyledTableCell component="th" scope="row">
+                  {row.Action_Set}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {row.To_be_completed_by}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {row.Actual_Date_of_completion}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {row.Not_Completed}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {row.No_Longer_Relevant}
+                </StyledTableCell>
+              </StyledTableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </div>
+  );
 }

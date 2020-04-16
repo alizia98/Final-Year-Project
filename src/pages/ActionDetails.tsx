@@ -97,77 +97,77 @@ export default function CustomizedTables() {
   // console.log(loading, error, data);
   // console.log(data.schema_infrm__action__c[0].Core_Score_Stage);
 
-  if (loading == false) {
-    const rows = [
-      createData(
-        data.schema_infrm__action__c[0].complexity_factors__c,
-        data.schema_infrm__action__c[0].contextual_problems__c,
-        data.schema_infrm__action__c[0].Core_Score_Stage,
-        data.schema_infrm__action__c[0].goal_progress__c,
-        data.schema_infrm__action__c[0].core_score__c
-      )
-    ];
-
-    return (
-      <div>
-        <div>
-          <Grid container spacing={3}>
-            <Grid item xs={9}>
-              <h1>Action Plan: {actionId}</h1>
-            </Grid>
-            <Grid item xs={3}>
-              <Button
-                variant="contained"
-                color="primary"
-                component={Link}
-                to="/action"
-              >
-                Back
-              </Button>
-            </Grid>
-          </Grid>
-        </div>
-        <TableContainer component={Paper}>
-          <Table className={classes.table} aria-label="customized table">
-            <TableHead>
-              <TableRow>
-                <StyledTableCell>Complexity factors</StyledTableCell>
-                <StyledTableCell align="right">
-                  Contextual problems
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  Core Score Stage
-                </StyledTableCell>
-                <StyledTableCell align="right">Goal progress</StyledTableCell>
-                <StyledTableCell align="right">Core score</StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map(row => (
-                <StyledTableRow key={row.Complexity_factors}>
-                  <StyledTableCell component="th" scope="row">
-                    {row.Complexity_factors}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {row.Contextual_problems}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {row.Core_Score_Stage}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {row.Goal_progress}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {row.Core_score}
-                  </StyledTableCell>
-                </StyledTableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </div>
-    );
-  } else {
-    return <div>loading....</div>;
+  if (loading === true) {
+    return <h1>loading....</h1>;
   }
+  if (error) {
+    return <h1>Error: {error}</h1>;
+  }
+  const rows = [
+    createData(
+      data.schema_infrm__action__c[0].complexity_factors__c,
+      data.schema_infrm__action__c[0].contextual_problems__c,
+      data.schema_infrm__action__c[0].Core_Score_Stage,
+      data.schema_infrm__action__c[0].goal_progress__c,
+      data.schema_infrm__action__c[0].core_score__c
+    )
+  ];
+
+  return (
+    <div>
+      <div>
+        <Grid container spacing={3}>
+          <Grid item xs={9}>
+            <h1>Action Plan: {actionId}</h1>
+          </Grid>
+          <Grid item xs={3}>
+            <Button
+              variant="contained"
+              color="primary"
+              component={Link}
+              to="/action"
+            >
+              Back
+            </Button>
+          </Grid>
+        </Grid>
+      </div>
+      <TableContainer component={Paper}>
+        <Table className={classes.table} aria-label="customized table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell>Complexity factors</StyledTableCell>
+              <StyledTableCell align="right">
+                Contextual problems
+              </StyledTableCell>
+              <StyledTableCell align="right">Core Score Stage</StyledTableCell>
+              <StyledTableCell align="right">Goal progress</StyledTableCell>
+              <StyledTableCell align="right">Core score</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map(row => (
+              <StyledTableRow key={row.Complexity_factors}>
+                <StyledTableCell component="th" scope="row">
+                  {row.Complexity_factors}
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  {row.Contextual_problems}
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  {row.Core_Score_Stage}
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  {row.Goal_progress}
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  {row.Core_score}
+                </StyledTableCell>
+              </StyledTableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </div>
+  );
 }

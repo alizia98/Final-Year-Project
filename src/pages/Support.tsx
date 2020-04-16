@@ -15,7 +15,6 @@ import Paper from "@material-ui/core/Paper";
 import { Link } from "react-router-dom";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
-import { indigo } from "@material-ui/core/colors";
 
 export const listOfSupportPlans = gql`
   query listOfSupportPlans {
@@ -44,16 +43,6 @@ const StyledTableCell = withStyles((theme: Theme) =>
   })
 )(TableCell);
 
-const StyledTableRow = withStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      "&:nth-of-type(odd)": {
-        backgroundColor: theme.palette.background.default
-      }
-    }
-  })
-)(TableRow);
-
 const useStyles = makeStyles({
   table: {
     minWidth: 700
@@ -64,13 +53,12 @@ export default function CustomizedTables() {
   const classes = useStyles();
   const { loading, error, data } = useQuery(listOfSupportPlans);
 
+  if (loading === true) {
+    return <div>Loading...</div>;
+  }
   if (error) {
     return <h1> Got back error : {error}</h1>;
   }
-  if (loading == true) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">

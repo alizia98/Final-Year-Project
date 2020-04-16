@@ -16,21 +16,6 @@ import { Link } from "react-router-dom";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 
-// export const listOfSupportPlans = gql`
-//   query listOfSupportPlans {
-//     schema_infrm__supportplan__c {
-//       name
-//       recordtype {
-//         name
-//       }
-//       createddate
-//       user_to_supportplan {
-//         name
-//       }
-//     }
-//   }
-// `;
-
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
     head: {
@@ -42,37 +27,6 @@ const StyledTableCell = withStyles((theme: Theme) =>
     }
   })
 )(TableCell);
-
-const StyledTableRow = withStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      "&:nth-of-type(odd)": {
-        backgroundColor: theme.palette.background.default
-      }
-    }
-  })
-)(TableRow);
-
-function createData(
-  id: string,
-  name: string,
-  Record_Type: string,
-  Counsellor: string,
-  createddate: number
-) {
-  return { id, name, Record_Type, Counsellor, createddate };
-}
-
-// const rows = [
-//   createData(
-//     255,
-//     "PLAN-20780",
-//     "Homeless Outcome Star Support Plan",
-//     "Surrey Counselling",
-//     11,
-//     "Paul harris"
-//   )
-// ];
 
 const useStyles = makeStyles({
   table: {
@@ -103,30 +57,34 @@ export default function CustomizedTables() {
   );
   // console.log(loading, error, data);
 
-  if (loading == false) {
-    const rows = [
-      createData(
-        data.schema_contact[0].infrm__action__cs[0].name,
-        data.schema_contact[0].infrm__action__cs[0].name,
-        data.schema_contact[0].infrm__action__cs[0].recordtype.name,
-        data.schema_contact[0].infrm__action__cs[0].counsellor__c,
-        data.schema_contact[0].infrm__action__cs[0].createddate
-      )
-    ];
+  if (loading === true) {
+    return <h1>Loading...</h1>;
+  }
 
-    return (
-      <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>Actions</StyledTableCell>
-              <StyledTableCell align="center">Record Type</StyledTableCell>
-              <StyledTableCell align="center">Counsellor</StyledTableCell>
-              <StyledTableCell align="center">Created Date</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map(row => (
+  if (error) {
+    return <h1>Error: {error}</h1>;
+  }
+
+  return (
+    <TableContainer component={Paper}>
+      <Table className={classes.table} aria-label="customized table">
+        <TableHead>
+          <TableRow>
+            <StyledTableCell>Actions</StyledTableCell>
+            <StyledTableCell align="center">Record Type</StyledTableCell>
+            <StyledTableCell align="center">Counsellor</StyledTableCell>
+            <StyledTableCell align="center">Created Date</StyledTableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {data.schema_contact[0].infrm__action__cs.map(
+            (row: {
+              name: string;
+              id: string;
+              recordtype: { name: string };
+              counsellor__c: string;
+              createddate: string;
+            }) => (
               // <Link key={row.id} to={"/action/" + row.id}>
               <TableRow
                 key={row.name}
@@ -138,22 +96,20 @@ export default function CustomizedTables() {
                   {row.name}
                 </StyledTableCell>
                 <StyledTableCell align="center">
-                  {row.Record_Type}
+                  {row.recordtype.name}
                 </StyledTableCell>
                 <StyledTableCell align="center">
-                  {row.Counsellor}
+                  {row.counsellor__c}
                 </StyledTableCell>
                 <StyledTableCell align="center">
                   {row.createddate}
                 </StyledTableCell>
               </TableRow>
               // </Link>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    );
-  } else {
-    return <div>Loading...</div>;
-  }
+            )
+          )}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
 }
