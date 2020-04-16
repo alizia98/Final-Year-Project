@@ -18,18 +18,6 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 
-// export const listOfSupportPlans = gql`
-//   query MyQuery($supportId: String!)) {
-//     schema_infrm__action__c(where: { name: { _eq: $supportId } }) {
-//       complexity_factors__c
-//       contextual_problems__c
-//       core_score_stage__c
-//       core_score__c
-//       goal_progress__c
-//     }
-//   }
-// `;
-
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
     head: {
@@ -52,22 +40,6 @@ const StyledTableRow = withStyles((theme: Theme) =>
   })
 )(TableRow);
 
-function createData(
-  Complexity_factors: string,
-  Contextual_problems: string,
-  Core_Score_Stage: string,
-  Goal_progress: number,
-  Core_score: number
-) {
-  return {
-    Complexity_factors,
-    Contextual_problems,
-    Core_Score_Stage,
-    Goal_progress,
-    Core_score
-  };
-}
-
 const useStyles = makeStyles({
   table: {
     minWidth: 700
@@ -77,7 +49,7 @@ const useStyles = makeStyles({
 export default function CustomizedTables() {
   const classes = useStyles();
   let { actionId } = useParams();
-  // console.log(actionId);
+  console.log(actionId);
 
   const { loading, error, data } = useQuery(
     gql`
@@ -94,7 +66,7 @@ export default function CustomizedTables() {
     { variables: { actionId } }
   );
 
-  // console.log(loading, error, data);
+  console.log(loading, error, data);
   // console.log(data.schema_infrm__action__c[0].Core_Score_Stage);
 
   if (loading === true) {
@@ -103,15 +75,6 @@ export default function CustomizedTables() {
   if (error) {
     return <h1>Error: {error}</h1>;
   }
-  const rows = [
-    createData(
-      data.schema_infrm__action__c[0].complexity_factors__c,
-      data.schema_infrm__action__c[0].contextual_problems__c,
-      data.schema_infrm__action__c[0].Core_Score_Stage,
-      data.schema_infrm__action__c[0].goal_progress__c,
-      data.schema_infrm__action__c[0].core_score__c
-    )
-  ];
 
   return (
     <div>
@@ -146,25 +109,33 @@ export default function CustomizedTables() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map(row => (
-              <StyledTableRow key={row.Complexity_factors}>
-                <StyledTableCell component="th" scope="row">
-                  {row.Complexity_factors}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  {row.Contextual_problems}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  {row.Core_Score_Stage}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  {row.Goal_progress}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  {row.Core_score}
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
+            {data.schema_infrm__action__c.map(
+              (row: {
+                complexity_factors__c: string;
+                contextual_problems__c: string;
+                Core_Score_Stage: string;
+                goal_progress__c: number;
+                core_score__c: number;
+              }) => (
+                <StyledTableRow key={row.complexity_factors__c}>
+                  <StyledTableCell component="th" scope="row">
+                    {row.complexity_factors__c}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {row.contextual_problems__c}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {row.Core_Score_Stage}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {row.goal_progress__c}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {row.core_score__c}
+                  </StyledTableCell>
+                </StyledTableRow>
+              )
+            )}
           </TableBody>
         </Table>
       </TableContainer>

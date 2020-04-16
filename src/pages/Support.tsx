@@ -59,6 +59,7 @@ export default function CustomizedTables() {
   if (error) {
     return <h1> Got back error : {error}</h1>;
   }
+
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">

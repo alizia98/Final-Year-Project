@@ -80,7 +80,6 @@ export default function CustomizedTables() {
           {data.schema_contact[0].infrm__action__cs.map(
             (row: {
               name: string;
-              id: string;
               recordtype: { name: string };
               counsellor__c: string;
               createddate: string;
@@ -90,7 +89,7 @@ export default function CustomizedTables() {
                 key={row.name}
                 hover={true}
                 component={Link}
-                to={"/action/" + row.id}
+                to={"/action/" + row.name}
               >
                 <StyledTableCell component="th" scope="row">
                   {row.name}

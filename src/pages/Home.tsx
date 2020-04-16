@@ -65,11 +65,19 @@ export default function Home() {
               {data.schema_contact[0].client_id__c}
             </Paper>
           </Grid>
-          <Grid item xs={3}>
+          {/* <Grid item xs={3}>
             <Paper className={classes.paper}>Support Agency Name</Paper>
           </Grid>
           <Grid item xs={9}>
             <Paper className={classes.paper}>_SupportAgencyName_</Paper>
+          </Grid> */}
+          <Grid item xs={3}>
+            <Paper className={classes.paper}>Date of Birth</Paper>
+          </Grid>
+          <Grid item xs={9}>
+            <Paper className={classes.paper}>
+              {data.schema_contact[0].birthdate}
+            </Paper>
           </Grid>
           <Grid item xs={3}>
             <Paper className={classes.paper}>Referral Date</Paper>
@@ -77,14 +85,6 @@ export default function Home() {
           <Grid item xs={9}>
             <Paper className={classes.paper}>
               {data.schema_contact[0].infrm__referral_date__c}
-            </Paper>
-          </Grid>
-          <Grid item xs={3}>
-            <Paper className={classes.paper}>Date of Birth</Paper>
-          </Grid>
-          <Grid item xs={9}>
-            <Paper className={classes.paper}>
-              {data.schema_contact[0].birthdate}
             </Paper>
           </Grid>
         </Grid>
