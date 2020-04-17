@@ -4,19 +4,6 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
-// import gql from "graphql-tag";
-
-export const personal_info = gql`
-  query Personalinfo {
-    schema_contact {
-      name
-      birthdate
-      client_id__c
-      infrm__referral_date__c
-      email
-    }
-  }
-`;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,12 +18,23 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function Home() {
+export default function Home(props: { email: string }) {
+  const email = props.email;
   const classes = useStyles();
-  const { loading, error, data } = useQuery(personal_info);
-
-  // console.log({ data, error, loading });
-  // console.log(this.props.name);
+  const { loading, error, data } = useQuery(
+    gql`
+      query Personalinfo($email: String!) {
+        schema_contact(where: { email: { _eq: $email } }) {
+          name
+          birthdate
+          client_id__c
+          infrm__referral_date__c
+          email
+        }
+      }
+    `,
+    { variables: { email } }
+  );
 
   if (loading === true) {
     return <div>Loading...</div>;

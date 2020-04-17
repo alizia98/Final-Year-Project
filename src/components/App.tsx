@@ -149,13 +149,13 @@ function App() {
                 <Toolbar />
                 <Switch>
                   <Route exact={true} path="/">
-                    <HomePage />
+                    <HomePage email={email} />
                   </Route>
                   <Route exact={true} path="/action">
-                    <ActionPage />
+                    <ActionPage email={email} />
                   </Route>
                   <Route exact={true} path="/support">
-                    <SupportPage />
+                    <SupportPage email={email} />
                   </Route>
                   <Route path="/maps">
                     <MapsPage />

@@ -35,8 +35,10 @@ const useStyles = makeStyles({
 });
 const email = "tommy@gmail.com";
 
-export default function CustomizedTables() {
+export default function CustomizedTables(props: { email: string }) {
   const classes = useStyles();
+
+  const email = props.email;
 
   const { loading, error, data } = useQuery(
     gql`

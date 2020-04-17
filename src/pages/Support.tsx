@@ -70,9 +70,10 @@ const useStyles = makeStyles({
   }
 });
 
-export default function CustomizedTables() {
+export default function CustomizedTables(props: { email: string }) {
+  // console.log("props:" + props.email);
   const classes = useStyles();
-  const email = "tommy@gmail.com";
+  const email = props.email;
 
   const { loading, error, data } = useQuery(
     gql`
@@ -94,7 +95,7 @@ export default function CustomizedTables() {
     { variables: { email } }
   );
 
-  console.log(loading, error, data);
+  // console.log(loading, error, data);
 
   if (loading === true) {
     return <div>Loading...</div>;
