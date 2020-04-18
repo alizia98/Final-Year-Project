@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme: Theme) =>
       }
     },
     div_spacing: {
-      paddingTop: theme.spacing(5)
+      paddingTop: theme.spacing(2)
     }
   })
 );
@@ -348,14 +348,16 @@ export default function CustomizedTables() {
               <h1>Support Plan: {supportId}</h1>
             </Grid>
             <Grid item xs={3}>
-              <Button
-                variant="contained"
-                color="primary"
-                component={Link}
-                to="/support"
-              >
-                Back
-              </Button>
+              <div className={classes.div_spacing}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  component={Link}
+                  to="/support"
+                >
+                  Back
+                </Button>
+              </div>
             </Grid>
           </Grid>
         </div>
