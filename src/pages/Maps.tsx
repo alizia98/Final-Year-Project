@@ -1,21 +1,16 @@
+import GoogleMap from "../components/GoogleMap";
 import React from "react";
-import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 
-export default function map() {
+export default function Map() {
+  const points = [
+    {
+      lat: 41.5,
+      lng: 41.5
+    }
+  ];
   return (
-    <div>map</div>
-    // <Map google={props.google} zoom={14}>
-    //   <Marker onClick={this.onMarkerClick} name={"Current location"} />
-
-    //   <InfoWindow onClose={this.onInfoWindowClose}>
-    //     {/* <div>
-    //       <h1>{this.state.selectedPlace.name}</h1>
-    //     </div> */}
-    //   </InfoWindow>
-    // </Map>
+    <div>
+      <GoogleMap points={points} />
+    </div>
   );
 }
-
-// export default GoogleApiWrapper({
-//   apiKey: "YOUR_GOOGLE_API_KEY_GOES_HERE"
-// })(map);

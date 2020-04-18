@@ -76,20 +76,32 @@ const createApolloClient = (authToken: string) => {
 function App() {
   const { isAuthenticated, token, user } = useAuth0();
 
-  // console.log(user);
+  console.log(user);
 
   const email = "tommy@gmail.com";
   // console.log(email);
 
-  // console.log(user);
-
   const classes = useStyles();
-  // console.log({ token });
+  console.log({ token, user, isAuthenticated });
+
   const location = useLocation();
 
   // for apollo client
   const client = createApolloClient(token);
-  // console.log(location);
+  if (!isAuthenticated || !user) {
+    return (
+      <ApolloProvider client={client}>
+        <Router>
+          <div className={classes.root}>
+            <CssBaseline />
+            <Header />
+          </div>
+        </Router>
+      </ApolloProvider>
+    );
+  }
+
+  console.log(user.email);
   return (
     <ApolloProvider client={client}>
       <Router>
@@ -97,79 +109,75 @@ function App() {
           <CssBaseline />
           <Header />
 
-          {isAuthenticated && (
-            <>
-              <Drawer
-                className={classes.drawer}
-                variant="permanent"
-                classes={{
-                  paper: classes.drawerPaper
-                }}
-              >
-                <Toolbar />
-                <div className={classes.drawerContainer}>
-                  <MenuList>
-                    <MenuItem
-                      className={classes.IndigoButton}
-                      selected={"/" === location.pathname}
-                      component={Link}
-                      to="/"
-                    >
-                      Personal Info
-                    </MenuItem>
-                    <MenuItem
-                      selected={"/support" === location.pathname}
-                      className={classes.IndigoButton}
-                      component={Link}
-                      to="/support"
-                    >
-                      Support Plan
-                    </MenuItem>
-                    <MenuItem
-                      selected={"/action" === location.pathname}
-                      className={classes.IndigoButton}
-                      component={Link}
-                      to="/action"
-                    >
-                      Action Plan
-                    </MenuItem>
-                    <MenuItem
-                      selected={"/maps" === location.pathname}
-                      className={classes.IndigoButton}
-                      component={Link}
-                      to="/maps"
-                    >
-                      Maps
-                    </MenuItem>
-                  </MenuList>
-                </div>
-              </Drawer>
+          <Drawer
+            className={classes.drawer}
+            variant="permanent"
+            classes={{
+              paper: classes.drawerPaper
+            }}
+          >
+            <Toolbar />
+            <div className={classes.drawerContainer}>
+              <MenuList>
+                <MenuItem
+                  className={classes.IndigoButton}
+                  selected={"/" === location.pathname}
+                  component={Link}
+                  to="/"
+                >
+                  Personal Info
+                </MenuItem>
+                <MenuItem
+                  selected={"/support" === location.pathname}
+                  className={classes.IndigoButton}
+                  component={Link}
+                  to="/support"
+                >
+                  Support Plan
+                </MenuItem>
+                <MenuItem
+                  selected={"/action" === location.pathname}
+                  className={classes.IndigoButton}
+                  component={Link}
+                  to="/action"
+                >
+                  Action Plan
+                </MenuItem>
+                <MenuItem
+                  selected={"/maps" === location.pathname}
+                  className={classes.IndigoButton}
+                  component={Link}
+                  to="/maps"
+                >
+                  Maps
+                </MenuItem>
+              </MenuList>
+            </div>
+          </Drawer>
 
-              <main className={classes.content}>
-                <Toolbar />
-                <Switch>
-                  <Route exact={true} path="/">
-                    <HomePage email={email} />
-                  </Route>
-                  <Route exact={true} path="/action">
-                    <ActionPage email={email} />
-                  </Route>
-                  <Route exact={true} path="/support">
-                    <SupportPage email={email} />
-                  </Route>
-                  <Route path="/maps">
-                    <MapsPage />
-                  </Route>
-                  <Route path="/support/:supportId">
-                    <SupportPlan />
-                  </Route>
-                  <Route path="/action/:actionId">
-                    <ActionDetail />
-                  </Route>
-                </Switch>
-              </main>
-            </>
-          )}
+          <main className={classes.content}>
+            <Toolbar />
+            <Switch>
+              <Route exact={true} path="/">
+                <HomePage email={email} />
+              </Route>
+              <Route exact={true} path="/action">
+                <ActionPage email={email} />
+              </Route>
+              <Route exact={true} path="/support">
+                <SupportPage email={email} />
+              </Route>
+              <Route path="/maps">
+                <MapsPage />
+              </Route>
+              <Route path="/support/:supportId">
+                <SupportPlan />
+              </Route>
+              <Route path="/action/:actionId">
+                <ActionDetail />
+              </Route>
+            </Switch>
+          </main>
         </div>
       </Router>
     </ApolloProvider>

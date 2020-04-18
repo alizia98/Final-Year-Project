@@ -19,40 +19,40 @@ import { Divider, Button, Grid } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { Radar } from "react-chartjs-2";
 
-export const listOfSupportPlans = gql`
-  query MyQuery {
-    schema_contact(where: { email: { _eq: "tommy@gmail.com" } }) {
-      infrm__supportplan__cs {
-        action_set_as1__c
-        action_set_as2__c
-        action_set_as3__c
-        action_set_as4__c
-        action_set_as5__c
-        to_be_completed_by_as1__c
-        to_be_completed_by_as2__c
-        to_be_completed_by_as3__c
-        to_be_completed_by_as4__c
-        to_be_completed_by_as5__c
-        actual_date_of_completion_as1__c
-        actual_date_of_completion_as2__c
-        actual_date_of_completion_as3__c
-        actual_date_of_completion_as4__c
-        actual_date_of_completion_as5__c
-        not_completed_as1__c
-        not_completed_as2__c
-        not_completed_as3__c
-        not_completed_as4__c
-        not_completed_as5__c
-        no_longer_relevant_as1__c
-        no_longer_relevant_as2__c
-        no_longer_relevant_as3__c
-        no_longer_relevant_as4__c
-        no_longer_relevant_as5__c
-        name
-      }
-    }
-  }
-`;
+// export const listOfSupportPlans = gql`
+//   query MyQuery {
+//     schema_contact(where: { email: { _eq: "tommy@gmail.com" } }) {
+//       infrm__supportplan__cs {
+//         action_set_as1__c
+//         action_set_as2__c
+//         action_set_as3__c
+//         action_set_as4__c
+//         action_set_as5__c
+//         to_be_completed_by_as1__c
+//         to_be_completed_by_as2__c
+//         to_be_completed_by_as3__c
+//         to_be_completed_by_as4__c
+//         to_be_completed_by_as5__c
+//         actual_date_of_completion_as1__c
+//         actual_date_of_completion_as2__c
+//         actual_date_of_completion_as3__c
+//         actual_date_of_completion_as4__c
+//         actual_date_of_completion_as5__c
+//         not_completed_as1__c
+//         not_completed_as2__c
+//         not_completed_as3__c
+//         not_completed_as4__c
+//         not_completed_as5__c
+//         no_longer_relevant_as1__c
+//         no_longer_relevant_as2__c
+//         no_longer_relevant_as3__c
+//         no_longer_relevant_as4__c
+//         no_longer_relevant_as5__c
+//         name
+//       }
+//     }
+//   }
+// `;
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
