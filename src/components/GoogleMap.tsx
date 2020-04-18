@@ -80,5 +80,5 @@ class DataMap extends Component<Props, States> {
 }
 
 export default GoogleApiWrapper({
-  apiKey: "AIzaSyAoRpWSXL16EnnFQqFfkRtfMCKJJTMzvk8"
+  apiKey: "AIzaSyD6xEMMzs4HKPAL8UaHmwRFL8NHBYVYc5M"
 })(DataMap);

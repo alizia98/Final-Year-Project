@@ -19,41 +19,6 @@ import { Divider, Button, Grid } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { Radar } from "react-chartjs-2";
 
-// export const listOfSupportPlans = gql`
-//   query MyQuery {
-//     schema_contact(where: { email: { _eq: "tommy@gmail.com" } }) {
-//       infrm__supportplan__cs {
-//         action_set_as1__c
-//         action_set_as2__c
-//         action_set_as3__c
-//         action_set_as4__c
-//         action_set_as5__c
-//         to_be_completed_by_as1__c
-//         to_be_completed_by_as2__c
-//         to_be_completed_by_as3__c
-//         to_be_completed_by_as4__c
-//         to_be_completed_by_as5__c
-//         actual_date_of_completion_as1__c
-//         actual_date_of_completion_as2__c
-//         actual_date_of_completion_as3__c
-//         actual_date_of_completion_as4__c
-//         actual_date_of_completion_as5__c
-//         not_completed_as1__c
-//         not_completed_as2__c
-//         not_completed_as3__c
-//         not_completed_as4__c
-//         not_completed_as5__c
-//         no_longer_relevant_as1__c
-//         no_longer_relevant_as2__c
-//         no_longer_relevant_as3__c
-//         no_longer_relevant_as4__c
-//         no_longer_relevant_as5__c
-//         name
-//       }
-//     }
-//   }
-// `;
-
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
     head: {
@@ -98,7 +63,17 @@ const useStyles = makeStyles((theme: Theme) =>
       minWidth: 700
     },
     root: {
-      flexGrow: 1
+      display: "flex",
+      flexWrap: "wrap",
+      marginBottom: "50px",
+      "& > *": {
+        margin: theme.spacing(1),
+        width: theme.spacing(16),
+        height: theme.spacing(16)
+      }
+    },
+    div_spacing: {
+      paddingTop: theme.spacing(5)
     }
   })
 );
@@ -247,15 +222,17 @@ export default function CustomizedTables() {
             <Grid item xs={9}>
               <h1>Support Plan: {supportId}</h1>
             </Grid>
-            <Grid item xs={3}>
-              <Button
-                variant="contained"
-                color="primary"
-                component={Link}
-                to="/support"
-              >
-                Back
-              </Button>
+            <Grid item xs={3} alignItems="center">
+              <div className={classes.div_spacing}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  component={Link}
+                  to="/support"
+                >
+                  Back
+                </Button>
+              </div>
             </Grid>
           </Grid>
         </div>
@@ -383,8 +360,11 @@ export default function CustomizedTables() {
           </Grid>
         </div>
 
-        <h2>Star Chart</h2>
-        <Radar data={chart_data} />
+        <Paper className={classes.root}>
+          <h2>Star Chart</h2>
+          <Radar data={chart_data} />
+        </Paper>
+
         <div>
           <TableContainer component={Paper}>
             <Table className={classes.table} aria-label="customized table">

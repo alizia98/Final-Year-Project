@@ -75,15 +75,15 @@ const createApolloClient = (authToken: string) => {
 function App() {
   const { isAuthenticated, token, user } = useAuth0();
 
-  console.log(user);
+  // console.log(user);
 
   const email = "tommy@gmail.com";
   // console.log(email);
 
   const classes = useStyles();
-  console.log({ token, user, isAuthenticated });
+  // console.log({ token, user, isAuthenticated });
 
-  const location = useLocation();
+  const location = useLocation(); // console.log("path: " + lol);
 
   // for apollo client
   const client = createApolloClient(token);
@@ -120,14 +120,14 @@ function App() {
               <MenuList>
                 <MenuItem
                   className={classes.IndigoButton}
-                  selected={"/" === location.pathname}
+                  // selected={"/" === location.pathname}
                   component={Link}
                   to="/"
                 >
                   Personal Info
                 </MenuItem>
                 <MenuItem
-                  selected={"/support" === location.pathname}
+                  // selected={"/support" === location.pathname}
                   className={classes.IndigoButton}
                   component={Link}
                   to="/support"
@@ -135,21 +135,21 @@ function App() {
                   Support Plan
                 </MenuItem>
                 <MenuItem
-                  selected={"/action" === location.pathname}
+                  // selected={"/action" === location.pathname}
                   className={classes.IndigoButton}
                   component={Link}
                   to="/action"
                 >
                   Action Plan
                 </MenuItem>
-                <MenuItem
-                  selected={"/maps" === location.pathname}
+                {/* <MenuItem
+                  // selected={"/maps" === location.pathname}
                   className={classes.IndigoButton}
                   component={Link}
                   to="/maps"
                 >
                   Maps
-                </MenuItem>
+                </MenuItem> */}
               </MenuList>
             </div>
           </Drawer>
@@ -166,9 +166,9 @@ function App() {
               <Route exact={true} path="/support">
                 <SupportPage email={email} />
               </Route>
-              <Route path="/maps">
+              {/* <Route path="/maps">
                 <MapsPage />
-              </Route>
+              </Route> */}
               <Route path="/support/:supportId">
                 <SupportPlan />
               </Route>
