@@ -149,6 +149,30 @@ export default function CustomizedTables() {
             infrm__x8_meaningful_use_time_staff__c
             infrm__x9_managing_tenancy_accommodation_staff__c
             infrm__x10_offending_staff__c
+            infrm__priority_area__c
+            infrm__priority_area_1_action__c
+            infrm__priority_area_1_target_date__c
+            infrm__priority_area_1_completed_date__c
+            infrm__priority_1_was_it_done__c
+            infrm__priority_area_1_who__c
+            infrm__priority_area_2__c
+            infrm__priority_area_2_action__c
+            infrm__priority_area_2_by_who__c
+            infrm__priority_area_2_completed_date__c
+            infrm__priority_area_2_target_date__c
+            infrm__priority_2_action_was_it_done__c
+            infrm__priority_area_3__c
+            infrm__priority_area_3_action__c
+            infrm__priority_area_3_by_who__c
+            infrm__priority_area_3_completed_date__c
+            infrm__priority_area_3_target_date__c
+            infrm__pr__c
+            infrm__priority_area_4__c
+            infrm__priority_area_4_action__c
+            infrm__priority_area_4_by_who__c
+            infrm__priority_area_4_completed_date__c
+            infrm__priority_area_4_target_date__c
+            infrm__priority_4_action_was_it_done__c
           }
         }
       }
@@ -164,186 +188,381 @@ export default function CustomizedTables() {
     return <h1>loading...</h1>;
   }
 
-  const chart_data = {
-    labels: [
-      "Motivation taking responsibility",
-      "Managing money staff",
-      "Social networks relationships",
-      "Self care living skills staff",
-      "Score drug alcohol misuse",
-      "Physical health staff",
-      "Emotional mental health staff",
-      "Meaningful use time staff",
-      "Managing tenancy accommodation staff",
-      "Offending staff"
-    ],
-    datasets: [
-      {
-        label: "",
-        backgroundColor: "rgba(255,99,132,0.2)",
-        borderColor: "rgba(255,99,132,1)",
-        pointBackgroundColor: "rgba(255,99,132,1)",
-        pointBorderColor: "#fff",
-        pointHoverBackgroundColor: "#fff",
-        pointHoverBorderColor: "rgba(255,99,132,1)",
-        data: [
-          data.schema_contact[0].infrm__supportplan__cs[0].infrm__x1_motivation_taking_responsibility_staf__c.charAt(
-            0
-          ),
-          data.schema_contact[0].infrm__supportplan__cs[0].infrm__x2_self_care_living_skills_staff__c.charAt(
-            0
-          ),
-          data.schema_contact[0].infrm__supportplan__cs[0].infrm__x3_managing_money_staff__c.charAt(
-            0
-          ),
-          data.schema_contact[0].infrm__supportplan__cs[0].infrm__x4_social_networks_relationships_staff__c.charAt(
-            0
-          ),
-          data.schema_contact[0].infrm__supportplan__cs[0].infrm__x5_score5_drug_alcohol_misuse_staff__c.charAt(
-            0
-          ),
-          data.schema_contact[0].infrm__supportplan__cs[0].infrm__x6_physical_health_staff__c.charAt(
-            0
-          ),
-          data.schema_contact[0].infrm__supportplan__cs[0].infrm__x7_emotional_mental_health_staff__c.charAt(
-            0
-          ),
-          data.schema_contact[0].infrm__supportplan__cs[0].infrm__x8_meaningful_use_time_staff__c.charAt(
-            0
-          ),
-          data.schema_contact[0].infrm__supportplan__cs[0].infrm__x9_managing_tenancy_accommodation_staff__c.charAt(
-            0
-          ),
-          data.schema_contact[0].infrm__supportplan__cs[0].infrm__x10_offending_staff__c.charAt(
-            0
-          )
-        ]
-      }
-    ]
-  };
-  // console.log(loading, error, data);
+  if (
+    data.schema_contact[0].infrm__supportplan__cs[0].infrm__priority_area__c ==
+    null
+  ) {
+    const rows = [
+      createData(
+        data.schema_contact[0].infrm__supportplan__cs[0].action_set_as1__c,
+        data.schema_contact[0].infrm__supportplan__cs[0]
+          .to_be_completed_by_as1__c,
+        data.schema_contact[0].infrm__supportplan__cs[0]
+          .actual_date_of_completion_as1__c,
+        data.schema_contact[0].infrm__supportplan__cs[0].not_completed_as1__c.toString(),
+        data.schema_contact[0].infrm__supportplan__cs[0].no_longer_relevant_as1__c.toString()
+      ),
+      createData(
+        data.schema_contact[0].infrm__supportplan__cs[0].action_set_as2__c,
+        data.schema_contact[0].infrm__supportplan__cs[0]
+          .to_be_completed_by_as2__c,
+        data.schema_contact[0].infrm__supportplan__cs[0]
+          .actual_date_of_completion_as2__c,
+        data.schema_contact[0].infrm__supportplan__cs[0].not_completed_as2__c.toString(),
+        data.schema_contact[0].infrm__supportplan__cs[0].no_longer_relevant_as2__c.toString()
+      ),
+      createData(
+        data.schema_contact[0].infrm__supportplan__cs[0].action_set_as3__c,
+        data.schema_contact[0].infrm__supportplan__cs[0]
+          .to_be_completed_by_as3__c,
+        data.schema_contact[0].infrm__supportplan__cs[0]
+          .actual_date_of_completion_as3__c,
+        data.schema_contact[0].infrm__supportplan__cs[0].not_completed_as3__c.toString(),
+        data.schema_contact[0].infrm__supportplan__cs[0].no_longer_relevant_as3__c.toString()
+      ),
+      createData(
+        data.schema_contact[0].infrm__supportplan__cs[0].action_set_as4__c,
+        data.schema_contact[0].infrm__supportplan__cs[0]
+          .to_be_completed_by_as4__c,
+        data.schema_contact[0].infrm__supportplan__cs[0]
+          .actual_date_of_completion_as4__c,
+        data.schema_contact[0].infrm__supportplan__cs[0].not_completed_as4__c.toString(),
+        data.schema_contact[0].infrm__supportplan__cs[0].no_longer_relevant_as4__c.toString()
+      ),
+      createData(
+        data.schema_contact[0].infrm__supportplan__cs[0].action_set_as5__c,
+        data.schema_contact[0].infrm__supportplan__cs[0]
+          .to_be_completed_by_as5__c,
+        data.schema_contact[0].infrm__supportplan__cs[0]
+          .actual_date_of_completion_as5__c,
+        data.schema_contact[0].infrm__supportplan__cs[0].not_completed_as5__c.toString(),
+        data.schema_contact[0].infrm__supportplan__cs[0].no_longer_relevant_as5__c.toString()
+      )
+    ];
 
-  console.log("hello");
-  console.log(
-    data.schema_contact[0].infrm__supportplan__cs[0].infrm__x4_social_networks_relationships_staff__c.charAt(
-      0
-    )
-  );
-
-  const rows = [
-    createData(
-      data.schema_contact[0].infrm__supportplan__cs[0].action_set_as1__c,
-      data.schema_contact[0].infrm__supportplan__cs[0]
-        .to_be_completed_by_as1__c,
-      data.schema_contact[0].infrm__supportplan__cs[0]
-        .actual_date_of_completion_as1__c,
-      data.schema_contact[0].infrm__supportplan__cs[0].not_completed_as1__c.toString(),
-      data.schema_contact[0].infrm__supportplan__cs[0].no_longer_relevant_as1__c.toString()
-    ),
-    createData(
-      data.schema_contact[0].infrm__supportplan__cs[0].action_set_as2__c,
-      data.schema_contact[0].infrm__supportplan__cs[0]
-        .to_be_completed_by_as2__c,
-      data.schema_contact[0].infrm__supportplan__cs[0]
-        .actual_date_of_completion_as2__c,
-      data.schema_contact[0].infrm__supportplan__cs[0].not_completed_as2__c.toString(),
-      data.schema_contact[0].infrm__supportplan__cs[0].no_longer_relevant_as2__c.toString()
-    ),
-    createData(
-      data.schema_contact[0].infrm__supportplan__cs[0].action_set_as3__c,
-      data.schema_contact[0].infrm__supportplan__cs[0]
-        .to_be_completed_by_as3__c,
-      data.schema_contact[0].infrm__supportplan__cs[0]
-        .actual_date_of_completion_as3__c,
-      data.schema_contact[0].infrm__supportplan__cs[0].not_completed_as3__c.toString(),
-      data.schema_contact[0].infrm__supportplan__cs[0].no_longer_relevant_as3__c.toString()
-    ),
-    createData(
-      data.schema_contact[0].infrm__supportplan__cs[0].action_set_as4__c,
-      data.schema_contact[0].infrm__supportplan__cs[0]
-        .to_be_completed_by_as4__c,
-      data.schema_contact[0].infrm__supportplan__cs[0]
-        .actual_date_of_completion_as4__c,
-      data.schema_contact[0].infrm__supportplan__cs[0].not_completed_as4__c.toString(),
-      data.schema_contact[0].infrm__supportplan__cs[0].no_longer_relevant_as4__c.toString()
-    ),
-    createData(
-      data.schema_contact[0].infrm__supportplan__cs[0].action_set_as5__c,
-      data.schema_contact[0].infrm__supportplan__cs[0]
-        .to_be_completed_by_as5__c,
-      data.schema_contact[0].infrm__supportplan__cs[0]
-        .actual_date_of_completion_as5__c,
-      data.schema_contact[0].infrm__supportplan__cs[0].not_completed_as5__c.toString(),
-      data.schema_contact[0].infrm__supportplan__cs[0].no_longer_relevant_as5__c.toString()
-    )
-  ];
-
-  return (
-    <div>
+    return (
       <div>
-        <Grid container spacing={3} alignContent="center">
-          <Grid item xs={9}>
-            <h1>Support Plan: {supportId}</h1>
+        <div>
+          <Grid container spacing={3} alignContent="center">
+            <Grid item xs={9}>
+              <h1>Support Plan: {supportId}</h1>
+            </Grid>
+            <Grid item xs={3}>
+              <Button
+                variant="contained"
+                color="primary"
+                component={Link}
+                to="/support"
+              >
+                Back
+              </Button>
+            </Grid>
           </Grid>
-          <Grid item xs={3}>
-            <Button
-              variant="contained"
-              color="primary"
-              component={Link}
-              to="/support"
-            >
-              Back
-            </Button>
-          </Grid>
-        </Grid>
+        </div>
+
+        <Divider />
+
+        <TableContainer component={Paper}>
+          <Table className={classes.table} aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Action Set</StyledTableCell>
+                <StyledTableCell align="center">
+                  To be completed by
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  Actual Date of completion
+                </StyledTableCell>
+                <StyledTableCell align="center">Not Completed</StyledTableCell>
+                <StyledTableCell align="center">
+                  No Longer Relevant
+                </StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map(row => (
+                <StyledTableRow key={row.Action_Set}>
+                  <StyledTableCell component="th" scope="row">
+                    {row.Action_Set}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {row.To_be_completed_by}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {row.Actual_Date_of_completion}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {row.Not_Completed}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {row.No_Longer_Relevant}
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </div>
+    );
+  } else {
+    const chart_data = {
+      labels: [
+        "Motivation taking responsibility",
+        "Managing money staff",
+        "Social networks relationships",
+        "Self care living skills staff",
+        "Score drug alcohol misuse",
+        "Physical health staff",
+        "Emotional mental health staff",
+        "Meaningful use time staff",
+        "Managing tenancy accommodation staff",
+        "Offending staff"
+      ],
+      datasets: [
+        {
+          label: "",
+          backgroundColor: "rgba(255,99,132,0.2)",
+          borderColor: "rgba(255,99,132,1)",
+          pointBackgroundColor: "rgba(255,99,132,1)",
+          pointBorderColor: "#fff",
+          pointHoverBackgroundColor: "#fff",
+          pointHoverBorderColor: "rgba(255,99,132,1)",
+          data: [
+            data.schema_contact[0].infrm__supportplan__cs[0].infrm__x1_motivation_taking_responsibility_staf__c.charAt(
+              0
+            ),
+            data.schema_contact[0].infrm__supportplan__cs[0].infrm__x2_self_care_living_skills_staff__c.charAt(
+              0
+            ),
+            data.schema_contact[0].infrm__supportplan__cs[0].infrm__x3_managing_money_staff__c.charAt(
+              0
+            ),
+            data.schema_contact[0].infrm__supportplan__cs[0].infrm__x4_social_networks_relationships_staff__c.charAt(
+              0
+            ),
+            data.schema_contact[0].infrm__supportplan__cs[0].infrm__x5_score5_drug_alcohol_misuse_staff__c.charAt(
+              0
+            ),
+            data.schema_contact[0].infrm__supportplan__cs[0].infrm__x6_physical_health_staff__c.charAt(
+              0
+            ),
+            data.schema_contact[0].infrm__supportplan__cs[0].infrm__x7_emotional_mental_health_staff__c.charAt(
+              0
+            ),
+            data.schema_contact[0].infrm__supportplan__cs[0].infrm__x8_meaningful_use_time_staff__c.charAt(
+              0
+            ),
+            data.schema_contact[0].infrm__supportplan__cs[0].infrm__x9_managing_tenancy_accommodation_staff__c.charAt(
+              0
+            ),
+            data.schema_contact[0].infrm__supportplan__cs[0].infrm__x10_offending_staff__c.charAt(
+              0
+            )
+          ]
+        }
+      ]
+    };
 
-      <Divider />
-
-      <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>Action Set</StyledTableCell>
-              <StyledTableCell align="center">
-                To be completed by
-              </StyledTableCell>
-              <StyledTableCell align="center">
-                Actual Date of completion
-              </StyledTableCell>
-              <StyledTableCell align="center">Not Completed</StyledTableCell>
-              <StyledTableCell align="center">
-                No Longer Relevant
-              </StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map(row => (
-              <StyledTableRow key={row.Action_Set}>
-                <StyledTableCell component="th" scope="row">
-                  {row.Action_Set}
-                </StyledTableCell>
-                <StyledTableCell align="center">
-                  {row.To_be_completed_by}
-                </StyledTableCell>
-                <StyledTableCell align="center">
-                  {row.Actual_Date_of_completion}
-                </StyledTableCell>
-                <StyledTableCell align="center">
-                  {row.Not_Completed}
-                </StyledTableCell>
-                <StyledTableCell align="center">
-                  {row.No_Longer_Relevant}
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+    return (
       <div>
+        <div>
+          <Grid container spacing={3} alignContent="center">
+            <Grid item xs={9}>
+              <h1>Support Plan: {supportId}</h1>
+            </Grid>
+            <Grid item xs={3}>
+              <Button
+                variant="contained"
+                color="primary"
+                component={Link}
+                to="/support"
+              >
+                Back
+              </Button>
+            </Grid>
+          </Grid>
+        </div>
+
         <h2>Star Chart</h2>
         <Radar data={chart_data} />
+        <div>
+          <TableContainer component={Paper}>
+            <Table className={classes.table} aria-label="customized table">
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell>Prioity Area</StyledTableCell>
+                  <StyledTableCell align="center">Action</StyledTableCell>
+                  <StyledTableCell align="center">By Whom</StyledTableCell>
+                  <StyledTableCell align="center">Target Date</StyledTableCell>
+                  <StyledTableCell align="center">
+                    Completed Date
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    Completion Status
+                  </StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                <StyledTableRow>
+                  <StyledTableCell component="th" scope="row">
+                    {
+                      data.schema_contact[0].infrm__supportplan__cs[0]
+                        .infrm__priority_area__c
+                    }
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {
+                      data.schema_contact[0].infrm__supportplan__cs[0]
+                        .infrm__priority_area_1_action__c
+                    }
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {
+                      data.schema_contact[0].infrm__supportplan__cs[0]
+                        .infrm__priority_area_1_who__c
+                    }
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {
+                      data.schema_contact[0].infrm__supportplan__cs[0]
+                        .infrm__priority_area_1_target_date__c
+                    }
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {
+                      data.schema_contact[0].infrm__supportplan__cs[0]
+                        .infrm__priority_area_1_completed_date__c
+                    }
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {
+                      data.schema_contact[0].infrm__supportplan__cs[0]
+                        .infrm__priority_1_was_it_done__c
+                    }
+                  </StyledTableCell>
+                </StyledTableRow>
+
+                <StyledTableRow>
+                  <StyledTableCell component="th" scope="row">
+                    {
+                      data.schema_contact[0].infrm__supportplan__cs[0]
+                        .infrm__priority_area_2__c
+                    }
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {
+                      data.schema_contact[0].infrm__supportplan__cs[0]
+                        .infrm__priority_area_2_action__c
+                    }
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {
+                      data.schema_contact[0].infrm__supportplan__cs[0]
+                        .infrm__priority_area_2_by_who__c
+                    }
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {
+                      data.schema_contact[0].infrm__supportplan__cs[0]
+                        .infrm__priority_area_2_target_date__c
+                    }
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {
+                      data.schema_contact[0].infrm__supportplan__cs[0]
+                        .infrm__priority_area_2_completed_date__c
+                    }
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {
+                      data.schema_contact[0].infrm__supportplan__cs[0]
+                        .infrm__priority_2_action_was_it_done__c
+                    }
+                  </StyledTableCell>
+                </StyledTableRow>
+
+                <StyledTableRow>
+                  <StyledTableCell component="th" scope="row">
+                    {
+                      data.schema_contact[0].infrm__supportplan__cs[0]
+                        .infrm__priority_area_3__c
+                    }
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {
+                      data.schema_contact[0].infrm__supportplan__cs[0]
+                        .infrm__priority_area_3_action__c
+                    }
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {
+                      data.schema_contact[0].infrm__supportplan__cs[0]
+                        .infrm__priority_area_3_by_who__c
+                    }
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {
+                      data.schema_contact[0].infrm__supportplan__cs[0]
+                        .infrm__priority_area_3_target_date__c
+                    }
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {
+                      data.schema_contact[0].infrm__supportplan__cs[0]
+                        .infrm__priority_area_3_completed_date__c
+                    }
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {
+                      data.schema_contact[0].infrm__supportplan__cs[0]
+                        .infrm__pr__c
+                    }
+                  </StyledTableCell>
+                </StyledTableRow>
+
+                <StyledTableRow>
+                  <StyledTableCell component="th" scope="row">
+                    {
+                      data.schema_contact[0].infrm__supportplan__cs[0]
+                        .infrm__priority_area_4__c
+                    }
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {
+                      data.schema_contact[0].infrm__supportplan__cs[0]
+                        .infrm__priority_area_4_action__c
+                    }
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {
+                      data.schema_contact[0].infrm__supportplan__cs[0]
+                        .infrm__priority_area_4_by_who__c
+                    }
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {
+                      data.schema_contact[0].infrm__supportplan__cs[0]
+                        .infrm__priority_area_4_target_date__c
+                    }
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {
+                      data.schema_contact[0].infrm__supportplan__cs[0]
+                        .infrm__priority_area_4_completed_date__c
+                    }
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {
+                      data.schema_contact[0].infrm__supportplan__cs[0]
+                        .infrm__priority_4_action_was_it_done__c
+                    }
+                  </StyledTableCell>
+                </StyledTableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }

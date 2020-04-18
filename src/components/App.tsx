@@ -5,7 +5,6 @@ import Drawer from "@material-ui/core/Drawer";
 import { useAuth0 } from "../auth/react-auth0-wrapper";
 import Toolbar from "@material-ui/core/Toolbar";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-// for apollo client
 import { ApolloProvider } from "@apollo/react-hooks";
 import { ApolloClient, HttpLink, InMemoryCache } from "apollo-boost";
 import { CssBaseline, MenuList, MenuItem } from "@material-ui/core";
