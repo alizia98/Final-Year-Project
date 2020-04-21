@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { withRouter } from "react-router";
 import { useAuth0 } from "../auth/react-auth0-wrapper";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
@@ -24,8 +24,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function Header() {
   const classes = useStyles();
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
-
+  const { isAuthenticated, loginWithRedirect, logout, loading } = useAuth0();
+  useEffect(() => {
+    if (!loading && !isAuthenticated) {
+      loginWithRedirect({});
+    }
+  }, [loading, isAuthenticated]);
   return (
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar>
@@ -39,14 +43,14 @@ function Header() {
           Step by Step Web Portal
         </Typography>
 
-        {!isAuthenticated && (
+        {!isAuthenticated && !loading && (
           <>
             <Button color="inherit" onClick={() => loginWithRedirect({})}>
               Log in
             </Button>
           </>
         )}
-        {isAuthenticated && (
+        {isAuthenticated && !loading && (
           <>
             <Button color="inherit" onClick={() => logout()}>
               Log out
