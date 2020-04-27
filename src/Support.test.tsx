@@ -33,13 +33,13 @@ const mocks = [
           {
             infrm__supportplan__cs: [
               {
-                name: "PLAN-20780",
+                name: "PLAN-xyz",
                 recordtype: {
-                  name: "Homeless Outcome Star Support Plan",
+                  name: "hello worl",
                 },
-                createddate: "2020-03-11T13:15:58",
+                createddate: "2020-03-11",
                 user_to_supportplan: {
-                  name: "Ali Zia",
+                  name: "xyz",
                 },
               },
             ],
@@ -58,6 +58,6 @@ it("renders products", async () => {
   );
   expect(getByText("Loading...")).toBeInTheDocument();
 
-  const producttag = await findByText("Paul Harris");
+  const producttag = await findByText("xyz");
   expect(producttag).toBeInTheDocument();
 });

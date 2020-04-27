@@ -11,7 +11,6 @@ import { CssBaseline, MenuList, MenuItem } from "@material-ui/core";
 import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
 import HomePage from "../pages/Home";
 import ActionPage from "../pages/Action";
-import MapsPage from "../pages/Maps";
 import SupportPlan from "../pages/SupportPlan";
 import SupportPage from "../pages/Support";
 import { useLocation } from "react-router-dom";
@@ -23,29 +22,29 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      display: "flex"
+      display: "flex",
     },
     appBar: {
-      zIndex: theme.zIndex.drawer + 1
+      zIndex: theme.zIndex.drawer + 1,
     },
     drawer: {
       width: drawerWidth,
-      flexShrink: 0
+      flexShrink: 0,
     },
     drawerPaper: {
-      width: drawerWidth
+      width: drawerWidth,
     },
     drawerContainer: {
-      overflow: "auto"
+      overflow: "auto",
     },
     content: {
       flexGrow: 1,
-      padding: theme.spacing(3)
+      padding: theme.spacing(3),
     },
     nested: {
       padding: theme.spacing(3),
       // paddingBottom: theme.spacing(4),
-      paddingLeft: theme.spacing(4)
+      paddingLeft: theme.spacing(4),
       // paddingTop: theme.spacing(4)
     },
     IndigoButton: {
@@ -54,9 +53,9 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingLeft: theme.spacing(4),
       "&:hover": {
         backgroundColor: indigo[500],
-        color: "#FFF"
-      }
-    }
+        color: "#FFF",
+      },
+    },
   })
 );
 
@@ -65,25 +64,21 @@ const createApolloClient = (authToken: string) => {
     link: new HttpLink({
       uri: "https://ymj-hasura.herokuapp.com/v1/graphql",
       headers: {
-        Authorization: `Bearer ${authToken}`
-      }
+        Authorization: `Bearer ${authToken}`,
+      },
     }),
-    cache: new InMemoryCache()
+    cache: new InMemoryCache(),
   });
 };
 
 function App() {
   const { isAuthenticated, token, user } = useAuth0();
 
-  // console.log(user);
+  console.log(user);
 
   const email = "tommy@gmail.com";
-  // console.log(email);
 
   const classes = useStyles();
-  // console.log({ token, user, isAuthenticated });
-
-  const location = useLocation(); // console.log("path: " + lol);
 
   // for apollo client
   const client = createApolloClient(token);
@@ -100,7 +95,7 @@ function App() {
     );
   }
 
-  console.log(user.email);
+  // console.log(user.email);
   return (
     <ApolloProvider client={client}>
       <Router>
@@ -112,7 +107,7 @@ function App() {
             className={classes.drawer}
             variant="permanent"
             classes={{
-              paper: classes.drawerPaper
+              paper: classes.drawerPaper,
             }}
           >
             <Toolbar />
@@ -120,14 +115,12 @@ function App() {
               <MenuList>
                 <MenuItem
                   className={classes.IndigoButton}
-                  // selected={"/" === location.pathname}
                   component={Link}
                   to="/"
                 >
                   Personal Info
                 </MenuItem>
                 <MenuItem
-                  // selected={"/support" === location.pathname}
                   className={classes.IndigoButton}
                   component={Link}
                   to="/support"
@@ -135,21 +128,12 @@ function App() {
                   Support Plan
                 </MenuItem>
                 <MenuItem
-                  // selected={"/action" === location.pathname}
                   className={classes.IndigoButton}
                   component={Link}
                   to="/action"
                 >
                   Action Plan
                 </MenuItem>
-                {/* <MenuItem
-                  // selected={"/maps" === location.pathname}
-                  className={classes.IndigoButton}
-                  component={Link}
-                  to="/maps"
-                >
-                  Maps
-                </MenuItem> */}
               </MenuList>
             </div>
           </Drawer>
@@ -166,9 +150,6 @@ function App() {
               <Route exact={true} path="/support">
                 <SupportPage email={email} />
               </Route>
-              {/* <Route path="/maps">
-                <MapsPage />
-              </Route> */}
               <Route path="/support/:supportId">
                 <SupportPlan />
               </Route>
