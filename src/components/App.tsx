@@ -16,6 +16,7 @@ import SupportPage from "../pages/Support";
 
 import { indigo } from "@material-ui/core/colors";
 import ActionDetail from "../pages/ActionDetails";
+import NavigationBar from "../pages/NavigationBar";
 
 const drawerWidth = 240;
 
@@ -119,6 +120,7 @@ function App() {
                   className={classes.IndigoButton}
                   component={Link}
                   to="/"
+                  data-testid="logout-button"
                 >
                   Personal Info
                 </MenuItem>

@@ -10,6 +10,7 @@ import SupportPlan from "./pages/SupportPlan";
 import App from "./components/App";
 import "@testing-library/jest-dom/extend-expect";
 import ActionDetail, { actionDetailquery } from "./pages/ActionDetails";
+import Header from "./components/header";
 
 afterEach(cleanup);
 
@@ -148,6 +149,18 @@ it("renders action", async () => {
   const element = getByTestId("loading");
   expect(element).toHaveTextContent("Loading");
 });
+
+// it("renders log out button in header", async () => {
+//   const { getByText, findByText, getByTestId } = render(<Header />);
+//   const element = getByTestId("logout-button");
+//   expect(element).toHaveTextContent("Log");
+// });
+
+// it("renders menu button", async () => {
+//   const { getByText, findByText, getByTestId } = render(<App />);
+//   const element = getByTestId("button");
+//   expect(element).toHaveTextContent("Personal");
+// });
 
 // it("renders actionDetail", async () => {
 //   const { getByText, findByText, getByTestId } = render(

@@ -44,7 +44,11 @@ function Header() {
         </Typography>
         {isAuthenticated && !loading && (
           <>
-            <Button color="inherit" onClick={() => logout()}>
+            <Button
+              color="inherit"
+              onClick={() => logout()}
+              data-testid="logout-button"
+            >
               Log out
             </Button>
           </>
