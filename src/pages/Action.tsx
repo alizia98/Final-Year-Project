@@ -3,7 +3,7 @@ import {
   withStyles,
   Theme,
   createStyles,
-  makeStyles
+  makeStyles,
 } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -16,22 +16,37 @@ import { Link } from "react-router-dom";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 
+export const actionQuery = gql`
+  query MyQuery($email: String!) {
+    schema_contact(where: { email: { _eq: $email } }) {
+      infrm__action__cs {
+        name
+        recordtype {
+          name
+        }
+        createddate
+        counsellor__c
+      }
+    }
+  }
+`;
+
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
     head: {
       backgroundColor: theme.palette.common.black,
-      color: theme.palette.common.white
+      color: theme.palette.common.white,
     },
     body: {
-      fontSize: 14
-    }
+      fontSize: 14,
+    },
   })
 )(TableCell);
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 700
-  }
+    minWidth: 700,
+  },
 });
 const email = "tommy@gmail.com";
 
@@ -40,27 +55,13 @@ export default function CustomizedTables(props: { email: string }) {
 
   const email = props.email;
 
-  const { loading, error, data } = useQuery(
-    gql`
-      query MyQuery($email: String!) {
-        schema_contact(where: { email: { _eq: $email } }) {
-          infrm__action__cs {
-            name
-            recordtype {
-              name
-            }
-            createddate
-            counsellor__c
-          }
-        }
-      }
-    `,
-    { variables: { email } }
-  );
+  const { loading, error, data } = useQuery(actionQuery, {
+    variables: { email },
+  });
   // console.log(loading, error, data);
 
   if (loading === true) {
-    return <h1>Loading...</h1>;
+    return <h1 data-testid="loading">Loading...</h1>;
   }
 
   if (error) {

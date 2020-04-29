@@ -5,39 +5,40 @@ import Grid from "@material-ui/core/Grid";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 
+export const personalInfoquery = gql`
+  query Personalinfo($email: String!) {
+    schema_contact(where: { email: { _eq: $email } }) {
+      name
+      birthdate
+      client_id__c
+      infrm__referral_date__c
+      email
+    }
+  }
+`;
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      flexGrow: 1
+      flexGrow: 1,
     },
     paper: {
       padding: theme.spacing(2),
       textAlign: "center",
-      color: theme.palette.text.secondary
-    }
+      color: theme.palette.text.secondary,
+    },
   })
 );
 
 export default function Home(props: { email: string }) {
   const email = props.email;
   const classes = useStyles();
-  const { loading, error, data } = useQuery(
-    gql`
-      query Personalinfo($email: String!) {
-        schema_contact(where: { email: { _eq: $email } }) {
-          name
-          birthdate
-          client_id__c
-          infrm__referral_date__c
-          email
-        }
-      }
-    `,
-    { variables: { email } }
-  );
+  const { loading, error, data } = useQuery(personalInfoquery, {
+    variables: { email },
+  });
 
   if (loading === true) {
-    return <div>Loading...</div>;
+    return <div data-testid="loading">Loading...</div>;
   }
   if (error) {
     return <h1> Got back error : {error}</h1>;

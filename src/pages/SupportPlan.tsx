@@ -3,7 +3,7 @@ import {
   withStyles,
   Theme,
   createStyles,
-  makeStyles
+  makeStyles,
 } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -23,11 +23,11 @@ const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
     head: {
       backgroundColor: theme.palette.common.black,
-      color: theme.palette.common.white
+      color: theme.palette.common.white,
     },
     body: {
-      fontSize: 14
-    }
+      fontSize: 14,
+    },
   })
 )(TableCell);
 
@@ -35,9 +35,9 @@ const StyledTableRow = withStyles((theme: Theme) =>
   createStyles({
     root: {
       "&:nth-of-type(odd)": {
-        backgroundColor: theme.palette.background.default
-      }
-    }
+        backgroundColor: theme.palette.background.default,
+      },
+    },
   })
 )(TableRow);
 
@@ -53,14 +53,14 @@ function createData(
     To_be_completed_by,
     Actual_Date_of_completion,
     Not_Completed,
-    No_Longer_Relevant
+    No_Longer_Relevant,
   };
 }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     table: {
-      minWidth: 700
+      minWidth: 700,
     },
     root: {
       display: "flex",
@@ -69,16 +69,16 @@ const useStyles = makeStyles((theme: Theme) =>
       "& > *": {
         margin: theme.spacing(1),
         width: theme.spacing(16),
-        height: theme.spacing(16)
-      }
+        height: theme.spacing(16),
+      },
     },
     div_spacing: {
-      paddingTop: theme.spacing(2)
-    }
+      paddingTop: theme.spacing(2),
+    },
   })
 );
 
-export default function CustomizedTables() {
+export default function SupportPlan() {
   const classes = useStyles();
   let { supportId } = useParams();
   // console.log("fetching id: " + supportId);
@@ -212,7 +212,7 @@ export default function CustomizedTables() {
           .actual_date_of_completion_as5__c,
         data.schema_contact[0].infrm__supportplan__cs[0].not_completed_as5__c.toString(),
         data.schema_contact[0].infrm__supportplan__cs[0].no_longer_relevant_as5__c.toString()
-      )
+      ),
     ];
 
     return (
@@ -257,7 +257,7 @@ export default function CustomizedTables() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map(row => (
+              {rows.map((row) => (
                 <StyledTableRow key={row.Action_Set}>
                   <StyledTableCell component="th" scope="row">
                     {row.Action_Set}
@@ -293,7 +293,7 @@ export default function CustomizedTables() {
         "Emotional mental health staff",
         "Meaningful use time staff",
         "Managing tenancy accommodation staff",
-        "Offending staff"
+        "Offending staff",
       ],
       datasets: [
         {
@@ -334,10 +334,10 @@ export default function CustomizedTables() {
             ),
             data.schema_contact[0].infrm__supportplan__cs[0].infrm__x10_offending_staff__c.charAt(
               0
-            )
-          ]
-        }
-      ]
+            ),
+          ],
+        },
+      ],
     };
 
     return (

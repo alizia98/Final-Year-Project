@@ -3,7 +3,7 @@ import {
   withStyles,
   Theme,
   createStyles,
-  makeStyles
+  makeStyles,
 } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -16,56 +16,55 @@ import { Link } from "react-router-dom";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 
+export const supportQuery = gql`
+  query MyQuery($email: String!) {
+    schema_contact(where: { email: { _eq: $email } }) {
+      infrm__supportplan__cs {
+        name
+        recordtype {
+          name
+        }
+        createddate
+        user_to_supportplan {
+          name
+        }
+      }
+    }
+  }
+`;
+
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
     head: {
       backgroundColor: theme.palette.common.black,
-      color: theme.palette.common.white
+      color: theme.palette.common.white,
     },
     body: {
-      fontSize: 14
-    }
+      fontSize: 14,
+    },
   })
 )(TableCell);
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 700
-  }
+    minWidth: 700,
+  },
 });
 
-export default function CustomizedTables(props: { email: string }) {
+export default function SupportPage(props: { email: string }) {
   // console.log("props:" + props.email);
   const classes = useStyles();
   const email = props.email;
 
-  const { loading, error, data } = useQuery(
-    gql`
-      query MyQuery($email: String!) {
-        schema_contact(where: { email: { _eq: $email } }) {
-          infrm__supportplan__cs {
-            name
-            recordtype {
-              name
-            }
-            createddate
-            user_to_supportplan {
-              name
-            }
-          }
-        }
-      }
-    `,
-    { variables: { email } }
-  );
-
-  // console.log(loading, error, data);
+  const { loading, error, data } = useQuery(supportQuery, {
+    variables: { email },
+  });
 
   if (loading === true) {
-    return <div>Loading...</div>;
+    return <div data-testid="loading">Loading...</div>;
   }
   if (error) {
-    return <h1> Got back error : {error}</h1>;
+    return <h1> error : {error}</h1>;
   }
 
   return (
@@ -73,7 +72,9 @@ export default function CustomizedTables(props: { email: string }) {
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Support Plan</StyledTableCell>
+            <StyledTableCell data-testid="back-button">
+              Support Plan
+            </StyledTableCell>
             <StyledTableCell align="center">Record Type</StyledTableCell>
             <StyledTableCell align="center">Created Date</StyledTableCell>
             <StyledTableCell align="center">Created By</StyledTableCell>
@@ -94,6 +95,7 @@ export default function CustomizedTables(props: { email: string }) {
                 hover={true}
                 component={Link}
                 to={"/support/" + row.name}
+                data-testid="text-content"
               >
                 <StyledTableCell component="th" scope="row">
                   {row.name}

@@ -11,14 +11,14 @@ import IconButton from "@material-ui/core/IconButton";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     appBar: {
-      zIndex: theme.zIndex.drawer + 1
+      zIndex: theme.zIndex.drawer + 1,
     },
     menuButton: {
-      marginRight: theme.spacing(2)
+      marginRight: theme.spacing(2),
     },
     title: {
-      flexGrow: 1
-    }
+      flexGrow: 1,
+    },
   })
 );
 
@@ -42,14 +42,6 @@ function Header() {
         <Typography variant="h6" className={classes.title}>
           Step by Step Web Portal
         </Typography>
-
-        {!isAuthenticated && !loading && (
-          <>
-            <Button color="inherit" onClick={() => loginWithRedirect({})}>
-              Log in
-            </Button>
-          </>
-        )}
         {isAuthenticated && !loading && (
           <>
             <Button color="inherit" onClick={() => logout()}>

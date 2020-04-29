@@ -3,7 +3,7 @@ import {
   withStyles,
   Theme,
   createStyles,
-  makeStyles
+  makeStyles,
 } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -18,15 +18,27 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 
+export const actionDetailquery = gql`
+  query MyQuery($actionId: String!) {
+    schema_infrm__action__c(where: { name: { _eq: $actionId } }) {
+      complexity_factors__c
+      contextual_problems__c
+      core_score_stage__c
+      core_score__c
+      goal_progress__c
+    }
+  }
+`;
+
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
     head: {
       backgroundColor: theme.palette.common.black,
-      color: theme.palette.common.white
+      color: theme.palette.common.white,
     },
     body: {
-      fontSize: 14
-    }
+      fontSize: 14,
+    },
   })
 )(TableCell);
 
@@ -34,16 +46,16 @@ const StyledTableRow = withStyles((theme: Theme) =>
   createStyles({
     root: {
       "&:nth-of-type(odd)": {
-        backgroundColor: theme.palette.background.default
-      }
-    }
+        backgroundColor: theme.palette.background.default,
+      },
+    },
   })
 )(TableRow);
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 700
-  }
+    minWidth: 700,
+  },
 });
 
 export default function CustomizedTables() {
@@ -51,26 +63,15 @@ export default function CustomizedTables() {
   let { actionId } = useParams();
   console.log(actionId);
 
-  const { loading, error, data } = useQuery(
-    gql`
-      query MyQuery($actionId: String!) {
-        schema_infrm__action__c(where: { name: { _eq: $actionId } }) {
-          complexity_factors__c
-          contextual_problems__c
-          core_score_stage__c
-          core_score__c
-          goal_progress__c
-        }
-      }
-    `,
-    { variables: { actionId } }
-  );
+  const { loading, error, data } = useQuery(actionDetailquery, {
+    variables: { actionId },
+  });
 
   console.log(loading, error, data);
   // console.log(data.schema_infrm__action__c[0].Core_Score_Stage);
 
   if (loading === true) {
-    return <h1>loading....</h1>;
+    return <h1>Loading....</h1>;
   }
   if (error) {
     return <h1>Error: {error}</h1>;

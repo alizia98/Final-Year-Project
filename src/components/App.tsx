@@ -13,7 +13,7 @@ import HomePage from "../pages/Home";
 import ActionPage from "../pages/Action";
 import SupportPlan from "../pages/SupportPlan";
 import SupportPage from "../pages/Support";
-import { useLocation } from "react-router-dom";
+
 import { indigo } from "@material-ui/core/colors";
 import ActionDetail from "../pages/ActionDetails";
 
@@ -77,6 +77,7 @@ function App() {
   console.log(user);
 
   const email = "tommy@gmail.com";
+  // email = user.email;
 
   const classes = useStyles();
 
@@ -89,6 +90,7 @@ function App() {
           <div className={classes.root}>
             <CssBaseline />
             <Header />
+            Loading ...
           </div>
         </Router>
       </ApolloProvider>
