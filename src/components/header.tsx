@@ -22,14 +22,23 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function Header() {
+export default function Header(props: {
+  isAuthenticated: boolean;
+  loginWithRedirect: Function;
+  logout: Function;
+  loading: boolean;
+}) {
   const classes = useStyles();
-  const { isAuthenticated, loginWithRedirect, logout, loading } = useAuth0();
+  const { isAuthenticated, loginWithRedirect, logout, loading } = props;
+
   useEffect(() => {
     if (!loading && !isAuthenticated) {
       loginWithRedirect({});
     }
   }, [loading, isAuthenticated]);
+  if (loading === true || !isAuthenticated) {
+    return null;
+  }
   return (
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar>
@@ -42,20 +51,15 @@ function Header() {
         <Typography variant="h6" className={classes.title}>
           Step by Step Web Portal
         </Typography>
-        {isAuthenticated && !loading && (
-          <>
-            <Button
-              color="inherit"
-              onClick={() => logout()}
-              data-testid="logout-button"
-            >
-              Log out
-            </Button>
-          </>
-        )}
+
+        <Button
+          color="inherit"
+          onClick={() => logout()}
+          data-testid="logout-button"
+        >
+          Log out
+        </Button>
       </Toolbar>
     </AppBar>
   );
 }
-
-export default withRouter(Header);

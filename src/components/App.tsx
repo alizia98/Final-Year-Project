@@ -13,7 +13,6 @@ import HomePage from "../pages/Home";
 import ActionPage from "../pages/Action";
 import SupportPlan from "../pages/SupportPlan";
 import SupportPage from "../pages/Support";
-
 import { indigo } from "@material-ui/core/colors";
 import ActionDetail from "../pages/ActionDetails";
 import NavigationBar from "../pages/NavigationBar";
@@ -73,7 +72,14 @@ const createApolloClient = (authToken: string) => {
 };
 
 function App() {
-  const { isAuthenticated, token, user } = useAuth0();
+  const {
+    isAuthenticated,
+    loginWithRedirect,
+    logout,
+    loading,
+    token,
+    user,
+  } = useAuth0();
 
   console.log(user);
 
@@ -90,11 +96,17 @@ function App() {
         <Router>
           <div className={classes.root}>
             <CssBaseline />
-            <Header />
+            <Header
+              isAuthenticated={isAuthenticated}
+              loginWithRedirect={loginWithRedirect}
+              logout={logout}
+              loading={loading}
+            />
             Loading ...
           </div>
         </Router>
       </ApolloProvider>
+      // <NavigationBar client={client} />
     );
   }
 
@@ -104,43 +116,14 @@ function App() {
       <Router>
         <div className={classes.root}>
           <CssBaseline />
-          <Header />
+          <Header
+            isAuthenticated={isAuthenticated}
+            loginWithRedirect={loginWithRedirect}
+            logout={logout}
+            loading={loading}
+          />
 
-          <Drawer
-            className={classes.drawer}
-            variant="permanent"
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-          >
-            <Toolbar />
-            <div className={classes.drawerContainer}>
-              <MenuList>
-                <MenuItem
-                  className={classes.IndigoButton}
-                  component={Link}
-                  to="/"
-                  data-testid="logout-button"
-                >
-                  Personal Info
-                </MenuItem>
-                <MenuItem
-                  className={classes.IndigoButton}
-                  component={Link}
-                  to="/support"
-                >
-                  Support Plan
-                </MenuItem>
-                <MenuItem
-                  className={classes.IndigoButton}
-                  component={Link}
-                  to="/action"
-                >
-                  Action Plan
-                </MenuItem>
-              </MenuList>
-            </div>
-          </Drawer>
+          <NavigationBar />
 
           <main className={classes.content}>
             <Toolbar />

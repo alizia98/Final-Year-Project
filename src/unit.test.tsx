@@ -11,6 +11,9 @@ import App from "./components/App";
 import "@testing-library/jest-dom/extend-expect";
 import ActionDetail, { actionDetailquery } from "./pages/ActionDetails";
 import Header from "./components/header";
+import waait from "waait";
+import { Router } from "react-router-dom";
+import { createMemoryHistory } from "history";
 
 afterEach(cleanup);
 
@@ -113,7 +116,7 @@ const mock_actionDetail = [
   },
 ];
 
-it("renders products", async () => {
+it("renders loading in products", async () => {
   const { getByText, findByText, getByTestId } = render(
     <MockedProvider mocks={mocks} addTypename={false}>
       <SupportPage email={"abc@gmail.com"} />
@@ -121,6 +124,29 @@ it("renders products", async () => {
   );
   const element = getByTestId("loading");
   expect(element).toHaveTextContent("Loading");
+
+  // const abc = await getByTestId("back-button");
+  // expect(abc).toHaveTextContent("Support");
+  // expect(findByText("hong kong")).toBeInTheDocument();
+
+  // const producttag = await findByText("xy");
+  // expect(producttag).toBeInTheDocument;
+});
+
+it("renders product when loaded ", async () => {
+  const history = createMemoryHistory();
+  const { getByText, findByText, getByTestId, debug } = render(
+    <Router history={history}>
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <SupportPage email={"abc@gmail.com"} />
+      </MockedProvider>
+    </Router>
+  );
+
+  await waait(0);
+
+  const element = getByTestId("text-content");
+  expect(element).toHaveTextContent("xyz");
 
   // const abc = await getByTestId("back-button");
   // expect(abc).toHaveTextContent("Support");
@@ -163,10 +189,13 @@ it("renders action", async () => {
 // });
 
 // it("renders actionDetail", async () => {
+//   const history = createMemoryHistory();
 //   const { getByText, findByText, getByTestId } = render(
-//     <MockedProvider mocks={mock_actionDetail} addTypename={false}>
-//       <ActionDetail />
-//     </MockedProvider>
+//     <Router history={history}>
+//       <MockedProvider mocks={mock_actionDetail} addTypename={false}>
+//         <ActionDetail />
+//       </MockedProvider>
+//     </Router>
 //   );
 //   const element = getByTestId("loading");
 //   expect(element).toHaveTextContent("Loading");
