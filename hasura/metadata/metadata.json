@@ -1,0 +1,460 @@
+{
+  "version": 2,
+  "tables": [
+    {
+      "table": {
+        "schema": "public",
+        "name": "users"
+      }
+    },
+    {
+      "table": {
+        "schema": "salesforce",
+        "name": "User_test"
+      },
+      "insert_permissions": [
+        {
+          "role": "user",
+          "permission": {
+            "check": {},
+            "columns": [
+              "name",
+              "last_seen",
+              "id"
+            ]
+          }
+        }
+      ],
+      "select_permissions": [
+        {
+          "role": "anonymous",
+          "permission": {
+            "columns": [
+              "id",
+              "name",
+              "last_seen"
+            ],
+            "filter": {}
+          }
+        },
+        {
+          "role": "user",
+          "permission": {
+            "columns": [
+              "id",
+              "name",
+              "last_seen"
+            ],
+            "filter": {}
+          }
+        }
+      ]
+    },
+    {
+      "table": {
+        "schema": "salesforce",
+        "name": "point_test"
+      },
+      "insert_permissions": [
+        {
+          "role": "user",
+          "permission": {
+            "check": {},
+            "columns": [
+              "id",
+              "post_id",
+              "user_id"
+            ]
+          }
+        }
+      ],
+      "select_permissions": [
+        {
+          "role": "anonymous",
+          "permission": {
+            "columns": [
+              "id",
+              "post_id",
+              "user_id"
+            ],
+            "filter": {},
+            "allow_aggregations": true
+          }
+        },
+        {
+          "role": "user",
+          "permission": {
+            "columns": [
+              "id",
+              "post_id",
+              "user_id"
+            ],
+            "filter": {},
+            "allow_aggregations": true
+          }
+        }
+      ]
+    },
+    {
+      "table": {
+        "schema": "salesforce",
+        "name": "post_test"
+      },
+      "insert_permissions": [
+        {
+          "role": "user",
+          "permission": {
+            "check": {},
+            "columns": [
+              "id",
+              "description",
+              "url",
+              "user_id",
+              "created_at"
+            ]
+          }
+        }
+      ],
+      "select_permissions": [
+        {
+          "role": "anonymous",
+          "permission": {
+            "columns": [
+              "id",
+              "url",
+              "created_at",
+              "user_id",
+              "description"
+            ],
+            "filter": {}
+          }
+        },
+        {
+          "role": "user",
+          "permission": {
+            "columns": [
+              "id",
+              "description",
+              "url",
+              "user_id",
+              "created_at"
+            ],
+            "filter": {}
+          }
+        }
+      ]
+    },
+    {
+      "table": {
+        "schema": "schema",
+        "name": "client_contact__c"
+      }
+    },
+    {
+      "table": {
+        "schema": "schema",
+        "name": "contact"
+      },
+      "array_relationships": [
+        {
+          "name": "infrm__action__cs",
+          "using": {
+            "foreign_key_constraint_on": {
+              "column": "infrm__client__c",
+              "table": {
+                "schema": "schema",
+                "name": "infrm__action__c"
+              }
+            }
+          }
+        },
+        {
+          "name": "infrm__supportplan__cs",
+          "using": {
+            "foreign_key_constraint_on": {
+              "column": "infrm__client__c",
+              "table": {
+                "schema": "schema",
+                "name": "infrm__supportplan__c"
+              }
+            }
+          }
+        }
+      ],
+      "select_permissions": [
+        {
+          "role": "user",
+          "permission": {
+            "columns": [
+              "lastname",
+              "accountid",
+              "name",
+              "birthdate",
+              "infrm__referral_date__c",
+              "isdeleted",
+              "systemmodstamp",
+              "client_id__c",
+              "createddate",
+              "firstname",
+              "sfid",
+              "id",
+              "_hc_lastop",
+              "_hc_err",
+              "reportstoid",
+              "email"
+            ],
+            "filter": {}
+          }
+        }
+      ]
+    },
+    {
+      "table": {
+        "schema": "schema",
+        "name": "infrm__action__c"
+      },
+      "object_relationships": [
+        {
+          "name": "contact",
+          "using": {
+            "foreign_key_constraint_on": "infrm__client__c"
+          }
+        },
+        {
+          "name": "recordtype",
+          "using": {
+            "foreign_key_constraint_on": "recordtypeid"
+          }
+        }
+      ],
+      "select_permissions": [
+        {
+          "role": "user",
+          "permission": {
+            "columns": [
+              "createddate",
+              "isdeleted",
+              "name",
+              "systemmodstamp",
+              "sfid",
+              "id",
+              "_hc_lastop",
+              "_hc_err",
+              "recordtypeid",
+              "counsellor__c",
+              "start_date_new__c",
+              "complexity_factors__c",
+              "contextual_problems__c",
+              "goal_progress__c",
+              "core_score__c",
+              "core_score_stage__c",
+              "infrm__client__c"
+            ],
+            "filter": {}
+          }
+        }
+      ]
+    },
+    {
+      "table": {
+        "schema": "schema",
+        "name": "infrm__supportplan__c"
+      },
+      "object_relationships": [
+        {
+          "name": "contact",
+          "using": {
+            "foreign_key_constraint_on": "infrm__client__c"
+          }
+        },
+        {
+          "name": "recordtype",
+          "using": {
+            "foreign_key_constraint_on": "recordtypeid"
+          }
+        },
+        {
+          "name": "user_to_supportplan",
+          "using": {
+            "manual_configuration": {
+              "remote_table": {
+                "schema": "schema",
+                "name": "user"
+              },
+              "column_mapping": {
+                "createdbyid": "sfid"
+              }
+            }
+          }
+        }
+      ],
+      "select_permissions": [
+        {
+          "role": "user",
+          "permission": {
+            "columns": [
+              "infrm__priority_2_action_was_it_done__c",
+              "infrm__priority_area_1_completed_date__c",
+              "infrm__x8_meaningful_use_time_staff__c",
+              "infrm__priority_area_2_completed_date__c",
+              "infrm__priority_4_action_was_it_done__c",
+              "infrm__priority_area_4__c",
+              "infrm__priority_area_3_completed_date__c",
+              "infrm__priority_area_4_completed_date__c",
+              "infrm__x6_physical_health_staff__c",
+              "infrm__priority_area_3__c",
+              "infrm__priority_area_2__c",
+              "infrm__priority_area_4_target_date__c",
+              "infrm__priority_area_1_who__c",
+              "infrm__priority_area_3_target_date__c",
+              "infrm__priority_area_2_target_date__c",
+              "infrm__x1_motivation_taking_responsibility_staf__c",
+              "infrm__priority_area_1_target_date__c",
+              "infrm__x9_managing_tenancy_accommodation_staff__c",
+              "name",
+              "infrm__x7_emotional_mental_health_staff__c",
+              "infrm__priority_area_2_by_who__c",
+              "infrm__priority_area_3_by_who__c",
+              "infrm__x2_self_care_living_skills_staff__c",
+              "isdeleted",
+              "infrm__priority_area_4_by_who__c",
+              "systemmodstamp",
+              "infrm__priority_1_was_it_done__c",
+              "infrm__x4_social_networks_relationships_staff__c",
+              "createddate",
+              "sfid",
+              "id",
+              "_hc_lastop",
+              "_hc_err",
+              "infrm__x3_managing_money_staff__c",
+              "infrm__x10_offending_staff__c",
+              "infrm__x5_score5_drug_alcohol_misuse_staff__c",
+              "infrm__priority_area__c",
+              "infrm__pr__c",
+              "infrm__priority_area_1_action__c",
+              "infrm__priority_area_2_action__c",
+              "infrm__priority_area_3_action__c",
+              "infrm__priority_area_4_action__c",
+              "not_completed_as5__c",
+              "to_be_completed_by_as1__c",
+              "not_completed_as4__c",
+              "not_completed_as3__c",
+              "not_completed_as2__c",
+              "not_completed_as1__c",
+              "action_set_as5__c",
+              "action_set_as4__c",
+              "action_set_as3__c",
+              "action_set_as2__c",
+              "action_set_as1__c",
+              "no_longer_relevant_as5__c",
+              "no_longer_relevant_as4__c",
+              "no_longer_relevant_as3__c",
+              "no_longer_relevant_as2__c",
+              "no_longer_relevant_as1__c",
+              "actual_date_of_completion_as5__c",
+              "actual_date_of_completion_as4__c",
+              "to_be_completed_by_as5__c",
+              "actual_date_of_completion_as3__c",
+              "to_be_completed_by_as4__c",
+              "actual_date_of_completion_as2__c",
+              "to_be_completed_by_as3__c",
+              "to_be_completed_by_as2__c",
+              "actual_date_of_completion_as1__c",
+              "recordtypeid",
+              "infrm__client__c",
+              "mental_health_risks_other_diagnosed__c",
+              "createdbyid"
+            ],
+            "filter": {}
+          }
+        }
+      ]
+    },
+    {
+      "table": {
+        "schema": "schema",
+        "name": "recordtype"
+      },
+      "array_relationships": [
+        {
+          "name": "infrm__action__cs",
+          "using": {
+            "foreign_key_constraint_on": {
+              "column": "recordtypeid",
+              "table": {
+                "schema": "schema",
+                "name": "infrm__action__c"
+              }
+            }
+          }
+        },
+        {
+          "name": "infrm__supportplan__cs",
+          "using": {
+            "foreign_key_constraint_on": {
+              "column": "recordtypeid",
+              "table": {
+                "schema": "schema",
+                "name": "infrm__supportplan__c"
+              }
+            }
+          }
+        }
+      ],
+      "select_permissions": [
+        {
+          "role": "user",
+          "permission": {
+            "columns": [
+              "createddate",
+              "name",
+              "systemmodstamp",
+              "sfid",
+              "id",
+              "_hc_lastop",
+              "_hc_err"
+            ],
+            "filter": {}
+          }
+        }
+      ]
+    },
+    {
+      "table": {
+        "schema": "schema",
+        "name": "user"
+      },
+      "array_relationships": [
+        {
+          "name": "infrm__supportplan__cs",
+          "using": {
+            "foreign_key_constraint_on": {
+              "column": "createdbyid",
+              "table": {
+                "schema": "schema",
+                "name": "infrm__supportplan__c"
+              }
+            }
+          }
+        }
+      ],
+      "select_permissions": [
+        {
+          "role": "user",
+          "permission": {
+            "columns": [
+              "createddate",
+              "name",
+              "systemmodstamp",
+              "sfid",
+              "id",
+              "_hc_lastop",
+              "_hc_err"
+            ],
+            "filter": {}
+          }
+        }
+      ]
+    }
+  ]
+}

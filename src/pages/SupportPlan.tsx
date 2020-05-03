@@ -150,7 +150,6 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function SupportPlan() {
   const classes = useStyles();
   let { supportId } = useParams();
-  // console.log("fetching id: " + supportId);
 
   const { loading, error, data } = useQuery(supportPlanQuery, {
     variables: { supportId },
