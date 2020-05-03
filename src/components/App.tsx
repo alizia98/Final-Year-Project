@@ -81,7 +81,7 @@ function App() {
     user,
   } = useAuth0();
 
-  console.log(user);
+  // console.log(loginWithRedirect);
 
   const email = "tommy@gmail.com";
   // email = user.email;

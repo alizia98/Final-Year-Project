@@ -5,4 +5,13 @@ module.exports = {
   },
   testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
+  reporters: [
+    "default",
+    [
+      "./node_modules/jest-html-reporter",
+      {
+        pageTitle: "Test Report",
+      },
+    ],
+  ],
 };

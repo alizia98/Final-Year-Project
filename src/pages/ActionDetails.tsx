@@ -61,17 +61,13 @@ const useStyles = makeStyles({
 export default function CustomizedTables() {
   const classes = useStyles();
   let { actionId } = useParams();
-  console.log(actionId);
 
   const { loading, error, data } = useQuery(actionDetailquery, {
     variables: { actionId },
   });
 
-  console.log(loading, error, data);
-  // console.log(data.schema_infrm__action__c[0].Core_Score_Stage);
-
   if (loading === true) {
-    return <h1>Loading....</h1>;
+    return <h1 data-testid="loading">Loading....</h1>;
   }
   if (error) {
     return <h1>Error: {error}</h1>;
@@ -128,7 +124,7 @@ export default function CustomizedTables() {
                   <StyledTableCell align="right">
                     {row.Core_Score_Stage}
                   </StyledTableCell>
-                  <StyledTableCell align="right">
+                  <StyledTableCell align="right" data-testid="text-content">
                     {row.goal_progress__c}
                   </StyledTableCell>
                   <StyledTableCell align="right">

@@ -51,7 +51,7 @@ export default function NavigationBar() {
             className={classes.IndigoButton}
             component={Link}
             to="/"
-            data-testid="logout-button"
+            data-testid="personalInfo"
           >
             Personal Info
           </MenuItem>
@@ -59,6 +59,7 @@ export default function NavigationBar() {
             className={classes.IndigoButton}
             component={Link}
             to="/support"
+            data-testid="Support_Plan"
           >
             Support Plan
           </MenuItem>
@@ -66,6 +67,7 @@ export default function NavigationBar() {
             className={classes.IndigoButton}
             component={Link}
             to="/action"
+            data-testid="Action_Plan"
           >
             Action Plan
           </MenuItem>

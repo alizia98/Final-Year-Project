@@ -93,6 +93,7 @@ export default function CustomizedTables(props: { email: string }) {
                 hover={true}
                 component={Link}
                 to={"/action/" + row.name}
+                data-testid="text-content"
               >
                 <StyledTableCell component="th" scope="row">
                   {row.name}

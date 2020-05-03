@@ -41,7 +41,7 @@ export default function Home(props: { email: string }) {
     return <div data-testid="loading">Loading...</div>;
   }
   if (error) {
-    return <h1> Got back error : {error}</h1>;
+    return <h1 data-testid="error"> > Got back error : {error}</h1>;
   }
   return (
     <div className={classes.root}>
@@ -50,7 +50,9 @@ export default function Home(props: { email: string }) {
           <Paper className={classes.paper}>Name</Paper>
         </Grid>
         <Grid item xs={9}>
-          <Paper className={classes.paper}>{data.schema_contact[0].name}</Paper>
+          <Paper className={classes.paper} data-testid="text-content">
+            {data.schema_contact[0].name}
+          </Paper>
         </Grid>
         <Grid item xs={3}>
           <Paper className={classes.paper}>Email</Paper>

@@ -19,6 +19,75 @@ import { Divider, Button, Grid } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { Radar } from "react-chartjs-2";
 
+export const supportPlanQuery = gql`
+  query MyQuery($supportId: String!) {
+    schema_contact {
+      infrm__supportplan__cs(where: { name: { _eq: $supportId } }) {
+        action_set_as1__c
+        action_set_as2__c
+        action_set_as3__c
+        action_set_as4__c
+        action_set_as5__c
+        to_be_completed_by_as1__c
+        to_be_completed_by_as2__c
+        to_be_completed_by_as3__c
+        to_be_completed_by_as4__c
+        to_be_completed_by_as5__c
+        actual_date_of_completion_as1__c
+        actual_date_of_completion_as2__c
+        actual_date_of_completion_as3__c
+        actual_date_of_completion_as4__c
+        actual_date_of_completion_as5__c
+        not_completed_as1__c
+        not_completed_as2__c
+        not_completed_as3__c
+        not_completed_as4__c
+        not_completed_as5__c
+        no_longer_relevant_as1__c
+        no_longer_relevant_as2__c
+        no_longer_relevant_as3__c
+        no_longer_relevant_as4__c
+        no_longer_relevant_as5__c
+        name
+        infrm__x1_motivation_taking_responsibility_staf__c
+        infrm__x2_self_care_living_skills_staff__c
+        infrm__x3_managing_money_staff__c
+        infrm__x4_social_networks_relationships_staff__c
+        infrm__x5_score5_drug_alcohol_misuse_staff__c
+        infrm__x6_physical_health_staff__c
+        infrm__x7_emotional_mental_health_staff__c
+        infrm__x8_meaningful_use_time_staff__c
+        infrm__x9_managing_tenancy_accommodation_staff__c
+        infrm__x10_offending_staff__c
+        infrm__priority_area__c
+        infrm__priority_area_1_action__c
+        infrm__priority_area_1_target_date__c
+        infrm__priority_area_1_completed_date__c
+        infrm__priority_1_was_it_done__c
+        infrm__priority_area_1_who__c
+        infrm__priority_area_2__c
+        infrm__priority_area_2_action__c
+        infrm__priority_area_2_by_who__c
+        infrm__priority_area_2_completed_date__c
+        infrm__priority_area_2_target_date__c
+        infrm__priority_2_action_was_it_done__c
+        infrm__priority_area_3__c
+        infrm__priority_area_3_action__c
+        infrm__priority_area_3_by_who__c
+        infrm__priority_area_3_completed_date__c
+        infrm__priority_area_3_target_date__c
+        infrm__pr__c
+        infrm__priority_area_4__c
+        infrm__priority_area_4_action__c
+        infrm__priority_area_4_by_who__c
+        infrm__priority_area_4_completed_date__c
+        infrm__priority_area_4_target_date__c
+        infrm__priority_4_action_was_it_done__c
+      }
+    }
+  }
+`;
+
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
     head: {
@@ -83,84 +152,16 @@ export default function SupportPlan() {
   let { supportId } = useParams();
   // console.log("fetching id: " + supportId);
 
-  const { loading, error, data } = useQuery(
-    gql`
-      query MyQuery($supportId: String!) {
-        schema_contact {
-          infrm__supportplan__cs(where: { name: { _eq: $supportId } }) {
-            action_set_as1__c
-            action_set_as2__c
-            action_set_as3__c
-            action_set_as4__c
-            action_set_as5__c
-            to_be_completed_by_as1__c
-            to_be_completed_by_as2__c
-            to_be_completed_by_as3__c
-            to_be_completed_by_as4__c
-            to_be_completed_by_as5__c
-            actual_date_of_completion_as1__c
-            actual_date_of_completion_as2__c
-            actual_date_of_completion_as3__c
-            actual_date_of_completion_as4__c
-            actual_date_of_completion_as5__c
-            not_completed_as1__c
-            not_completed_as2__c
-            not_completed_as3__c
-            not_completed_as4__c
-            not_completed_as5__c
-            no_longer_relevant_as1__c
-            no_longer_relevant_as2__c
-            no_longer_relevant_as3__c
-            no_longer_relevant_as4__c
-            no_longer_relevant_as5__c
-            name
-            infrm__x1_motivation_taking_responsibility_staf__c
-            infrm__x2_self_care_living_skills_staff__c
-            infrm__x3_managing_money_staff__c
-            infrm__x4_social_networks_relationships_staff__c
-            infrm__x5_score5_drug_alcohol_misuse_staff__c
-            infrm__x6_physical_health_staff__c
-            infrm__x7_emotional_mental_health_staff__c
-            infrm__x8_meaningful_use_time_staff__c
-            infrm__x9_managing_tenancy_accommodation_staff__c
-            infrm__x10_offending_staff__c
-            infrm__priority_area__c
-            infrm__priority_area_1_action__c
-            infrm__priority_area_1_target_date__c
-            infrm__priority_area_1_completed_date__c
-            infrm__priority_1_was_it_done__c
-            infrm__priority_area_1_who__c
-            infrm__priority_area_2__c
-            infrm__priority_area_2_action__c
-            infrm__priority_area_2_by_who__c
-            infrm__priority_area_2_completed_date__c
-            infrm__priority_area_2_target_date__c
-            infrm__priority_2_action_was_it_done__c
-            infrm__priority_area_3__c
-            infrm__priority_area_3_action__c
-            infrm__priority_area_3_by_who__c
-            infrm__priority_area_3_completed_date__c
-            infrm__priority_area_3_target_date__c
-            infrm__pr__c
-            infrm__priority_area_4__c
-            infrm__priority_area_4_action__c
-            infrm__priority_area_4_by_who__c
-            infrm__priority_area_4_completed_date__c
-            infrm__priority_area_4_target_date__c
-            infrm__priority_4_action_was_it_done__c
-          }
-        }
-      }
-    `,
-    { variables: { supportId } }
-  );
+  const { loading, error, data } = useQuery(supportPlanQuery, {
+    variables: { supportId },
+  });
 
   if (error) {
     return <h1> Got back error : {error}</h1>;
   }
 
   if (loading === true) {
-    return <h1>loading...</h1>;
+    return <h1 data-testid="loading">Loading...</h1>;
   }
 
   if (
@@ -220,7 +221,7 @@ export default function SupportPlan() {
         <div>
           <Grid container spacing={3} alignContent="center">
             <Grid item xs={9}>
-              <h1>Support Plan: {supportId}</h1>
+              <h1 data-testid="text-content">Support Plan: {supportId}</h1>
             </Grid>
             <Grid item xs={3} alignItems="center">
               <div className={classes.div_spacing}>
