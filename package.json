@@ -16,7 +16,7 @@
     "apollo-boost": "^0.4.7",
     "apollo-link-context": "^1.0.19",
     "chart.js": "^2.9.3",
-    "contentful": "^7.14.2",
+    "contentful": "^11.5.4",
     "google-maps-react": "^2.0.2",
     "graphql": "^15.0.0",
     "jest-html-reporter": "^3.1.0",
@@ -57,7 +57,7 @@
     "@testing-library/react": "^9.5.0",
     "@types/jest": "^25.2.1",
     "@types/react-test-renderer": "^16.9.2",
-    "hasura-cli": "^1.2.0",
+    "hasura-cli": "^2.38.0",
     "react-test-renderer": "^16.13.1",
     "ts-jest": "^25.4.0"
   }
